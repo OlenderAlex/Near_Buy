@@ -34,6 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class SellerAddNewProductActivity extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
     private static final int GALLERY_IMG_PICKED=1;
     private Uri imageUri;
 
-    private String productRandomKey,downloadImageUrl,saveCurrentDate,saveCurrentTime;;
+    private String productRandomKey,downloadImageUrl,saveCurrentDate,saveCurrentTime;
     private StorageReference productsImagesRef;
 
     private DatabaseReference productsDataRef;
@@ -228,7 +229,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
                     {
                         if (!task.isSuccessful())
                         {
-                            throw task.getException();
+                            throw Objects.requireNonNull(task.getException());
                         }
 
                         downloadImageUrl = filePath.getDownloadUrl().toString();
@@ -240,7 +241,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
                     {
                         if (task.isSuccessful())
                         {
-                            downloadImageUrl = task.getResult().toString();
+                            downloadImageUrl = Objects.requireNonNull(task.getResult()).toString();
                             SaveProductInfoToDatabase();
                         }
                     }
@@ -279,7 +280,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
                         else
                         {
                             loadingBar.dismiss();
-                            String message = task.getException().toString();
+                            String message = Objects.requireNonNull(task.getException()).toString();
                             Toast.makeText(SellerAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                         }
                     }

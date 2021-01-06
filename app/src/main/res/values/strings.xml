@@ -94,4 +94,6 @@
     <string name="nis">NIS</string>
     <string name="nis1">NIS</string>
     <string name="price1">Price</string>
+    <string name="you_order_was_chippd">Your order was shipped</string>
+    <string name="your_order_notshipped">Your order is not shipped yet. It will be shipped soon.</string>
 </resources>

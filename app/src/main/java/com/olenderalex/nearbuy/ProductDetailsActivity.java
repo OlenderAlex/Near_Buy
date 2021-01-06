@@ -75,6 +75,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     Products product =snapshot.getValue(Products.class);
 
+                    assert product != null;
                     productName.setText(product.getProductName());
                     productDescription.setText(product.getDescription());
                     productPrice.setText(product.getPrice());

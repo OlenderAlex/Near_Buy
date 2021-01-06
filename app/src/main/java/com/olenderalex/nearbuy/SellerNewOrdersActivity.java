@@ -79,7 +79,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CharSequence isDelivered [] =new CharSequence[]{
+                                CharSequence[] isDelivered =new CharSequence[]{
                                         "Yes",
                                         "No"
                                 };
@@ -99,7 +99,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
                                             Toast.makeText(SellerNewOrdersActivity.this,"Order removed",Toast.LENGTH_LONG).show();
                                         }
                                         else{
-                                            optionDialog.dismiss();;
+                                            optionDialog.dismiss();
 
                                         }
                                     }

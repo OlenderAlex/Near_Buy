@@ -35,6 +35,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageActivity;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
     private CircleImageView profileImage;
@@ -120,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
         else{
-            Toast.makeText(this,"Picture is not added",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Picture is not added",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SettingsActivity.this,SettingsActivity.class));
             finish();
         }
@@ -177,7 +178,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 Uri downloadUrl = task.getResult();
 
-                                myUrl = downloadUrl.toString();
+                                myUrl = Objects.requireNonNull(downloadUrl).toString();
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(parentDbName);
 
@@ -252,11 +253,11 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         if(snapshot.child(Util.userImage).exists()){
-                            String image=snapshot.child(Util.userImage).getValue().toString();
-                            String name=snapshot.child(Util.userName).getValue().toString();
-                            String password=snapshot.child(Util.userPassword).getValue().toString();
-                            String address=snapshot.child(Util.userAddress).getValue().toString();
-                            String phone=snapshot.child(Util.userPhone).getValue().toString();
+                            String image= Objects.requireNonNull(snapshot.child(Util.userImage).getValue()).toString();
+                            String name= Objects.requireNonNull(snapshot.child(Util.userName).getValue()).toString();
+                            String password= Objects.requireNonNull(snapshot.child(Util.userPassword).getValue()).toString();
+                            String address= Objects.requireNonNull(snapshot.child(Util.userAddress).getValue()).toString();
+                            String phone= Objects.requireNonNull(snapshot.child(Util.userPhone).getValue()).toString();
 
                             Picasso.get().load(image).into(profileImage);
                             nameEt.setText(name);

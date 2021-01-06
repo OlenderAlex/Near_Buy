@@ -14,6 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.olenderalex.nearbuy.Utils.Util;
 
+import java.util.Objects;
+
 public class UserOrdersActivity extends AppCompatActivity {
     private TextView msgOrderPlacedTv;
 
@@ -41,16 +43,16 @@ public class UserOrdersActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String shippingState = snapshot.child(Util.orderState).getValue().toString();
-                    String userName = snapshot.child(Util.userName).getValue().toString();
+                    String shippingState = Objects.requireNonNull(snapshot.child(Util.orderState).getValue()).toString();
+                    String userName = Objects.requireNonNull(snapshot.child(Util.userName).getValue()).toString();
 
                     if (shippingState.equals(Util.shipped)) {
-                        msgOrderPlacedTv.setText("Your order was shipped");
+                        msgOrderPlacedTv.setText(R.string.you_order_was_chippd);
                         msgOrderPlacedTv.setVisibility(View.VISIBLE);
 
 
                     } else if (shippingState.equals(Util.notShipped)) {
-                        msgOrderPlacedTv.setText("Your order is not shipped yet. It will be shipped soon.");
+                        msgOrderPlacedTv.setText(R.string.your_order_notshipped);
                         msgOrderPlacedTv.setVisibility(View.VISIBLE);
 
                     }

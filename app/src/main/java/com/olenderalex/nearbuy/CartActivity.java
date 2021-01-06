@@ -48,7 +48,7 @@ public class CartActivity extends AppCompatActivity {
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        nextProcessBtn=(Button) findViewById(R.id.next_process_btn);
+        nextProcessBtn= findViewById(R.id.next_process_btn);
         nextProcessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,7 @@ public class CartActivity extends AppCompatActivity {
 
                 //Calculating total price
 
-                int singleProductPrice=( (Integer.valueOf(model.getPrice())))*Integer.valueOf(model.getQuantity());
+                int singleProductPrice=Integer.valueOf(model.getPrice())*Integer.valueOf(model.getQuantity());
                 totalPrice+=singleProductPrice;
 
                 if(totalPrice!=0){
@@ -98,7 +98,7 @@ public class CartActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        CharSequence editProduct[] = new CharSequence[] {
+                        CharSequence[] editProduct = new CharSequence[] {
                                 "Edit",
                                 "Delete"
                         };

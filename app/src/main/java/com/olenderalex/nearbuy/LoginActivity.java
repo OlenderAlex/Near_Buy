@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Users;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputPhoneNumber, inputPassword;
@@ -120,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     Users userData = snapshot.child(parentDbName).child(phone).getValue(Users.class);
 
                     // Checking if account with entered phone number exists in data base
-                    if (userData.getPhone().equals(phone)) {
+                    if (Objects.requireNonNull(userData).getPhone().equals(phone)) {
 
                         if (userData.getPassword().equals(password)) {
 

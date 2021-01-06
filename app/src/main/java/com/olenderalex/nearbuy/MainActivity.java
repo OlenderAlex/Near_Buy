@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Users;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private Button loginBtnUser;
     private Button loginBtnSeller;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         String sellerPasswordKey = Paper.book().read(Util.sellerPasswordKey);
 
 
-        if (userPhoneKey != "" && userPasswordKey != "") {
+        if (!userPhoneKey.equals("") && !userPasswordKey.equals("")) {
             if (!TextUtils.isEmpty(userPhoneKey) && !TextUtils.isEmpty(userPasswordKey)) {
                 allowAccess(userPhoneKey, userPasswordKey);
 
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (sellerPhoneKey != "" && sellerPasswordKey != "") {
+        if (!sellerPhoneKey.equals("") && !sellerPasswordKey.equals("")) {
             if (!TextUtils.isEmpty(sellerPhoneKey) && !TextUtils.isEmpty(sellerPasswordKey)) {
                 parentDbName= Util.sellerDbName;
                 allowAccess(sellerPhoneKey, sellerPasswordKey);
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     /*
                     Checking if account with entered phone number exists in data base
                      */
-                    if(userData.getPhone().equals(phone))
+                    if(Objects.requireNonNull(userData).getPhone().equals(phone))
                     {
 
                         if(userData.getPassword().equals(password)) {
