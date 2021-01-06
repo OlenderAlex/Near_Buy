@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SellerCategoryActivity"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:weightSum="2"
+    android:background="@color/colorAccent"
+    android:layout_height="43dp">
+
+    <TextView
+        android:id="@+id/add_new_product_category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="@string/my_store"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginLeft="50dp"/>
+
+    <Button
+        android:id="@+id/logout_btn_seller_category"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/logout_img"
+        android:textColor="@color/black"
+
+        />
+</LinearLayout>
+    <TextView
+        android:id="@+id/slogan_category_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose the category of product you want to add"
+        android:inputType="textMultiLine"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:layout_margin="30dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="3"
+        android:layout_marginTop="20dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:weightSum="3"
+
+            >
+
+            <ImageView
+                android:id="@+id/category_comps"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/comps"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/computers"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_appliances"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/electronics1"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/appliances"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_phones"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/smartphone"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/smartphones"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/slogan_category_tv"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:weightSum="3"
+            >
+
+            <ImageView
+                android:id="@+id/category_clothes"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/shirt_color"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clothes"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_toys"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/toys_color"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toys"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_sport"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/sport_color"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sport_equipment"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/slogan_category_tv"
+            android:gravity="center"
+            android:weightSum="3"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:id="@+id/category_food"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/groceries"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_fruits"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/market"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fresh_marker"
+                android:layout_marginTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/category_pets"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:src="@drawable/pet_color"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/for_pets"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/check_new_orders_btn_seller_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons"
+        android:text="@string/check_new_orders"
+        android:textColor="@color/white"
+        android:layout_margin="50dp"/>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="android:itemTextAppearance">@style/menu_item_color</item>
+
+        <item name="colorPrimary">#0B0A0A</item>
+        <item name="colorPrimaryDark">#006637</item>
+        <item name="colorAccent">#006637</item>
+    </style>
+
+    <style name="menu_item_color">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="Divider">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        //you can give your color here. that will change all divider color in your app.
+    </style>
+
+    <style name="Divider.Horizontal" parent="Divider">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">1dp</item>
+        // You can change thickness here.
+
+    </style>
+
+    <style name="Divider.Vertical" parent="Divider">
+
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+</resources>

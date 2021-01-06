@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardElevation="15dp"
+    android:background="@drawable/button_blue"
+    android:orientation="vertical">
+
+
+
+        <TextView
+            android:id="@+id/user_name_new_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+             />
+
+        <TextView
+            android:id="@+id/user_phone_new_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"/>
+
+
+        <TextView
+            android:id="@+id/user_address_new_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"
+            />
+            <TextView
+                android:id="@+id/order_time_new_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/date_and_time"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                />
+
+
+
+    <TextView
+        android:id="@+id/total_price_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/total_price"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_margin="5dp"
+        />
+    <Button
+        android:id="@+id/show_details_new_orders_btn"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:text="SHOW DETAILS"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttons"/>
+
+</LinearLayout>
