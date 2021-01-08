@@ -4,36 +4,54 @@
     tools:showIn="navigation_view"
     >
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_cart"
-            android:icon="@drawable/shopping_cart_green"
-            android:title="@string/cart" />
-        <item
-            android:id="@+id/nav_my_account"
-            android:icon="@drawable/my_account_img"
-            android:title="@string/my_account" />
-        <item
-            android:id="@+id/nav_saved_items"
-            android:icon="@drawable/saved_items_img"
-            android:title="@string/saved_items" />
-
-        <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/ic_baseline_devices_other_24"
-            android:title="@string/orders" />
-
-    </group >
-    <item android:title="@string/settings_and_exit" >
+    <item android:title="@string/find_your_product" >
 
         <menu>
 
             <group android:checkableBehavior="single">
 
                 <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/settings_img"
-                    android:title="@string/settings" />
+                    android:id="@+id/nav_search"
+                    android:icon="@drawable/search_img"
+                    android:title="Search" />
+
+                <item
+                    android:id="@+id/nav_category"
+                    android:icon="@drawable/category_img"
+                    android:title="@string/category" />
+
+            </group>
+
+        </menu>
+
+    </item>
+
+
+    <group android:checkableBehavior="single">
+
+
+
+
+    </group >
+    <item android:title="" >
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_cart"
+                    android:icon="@drawable/shopping_cart_green"
+                    android:title="@string/cart" />
+                <item
+                    android:id="@+id/nav_my_account"
+                    android:icon="@drawable/my_account_img"
+                    android:title="@string/my_account" />
+
+                <item
+                    android:id="@+id/nav_orders"
+                    android:icon="@drawable/orders_img"
+                    android:title="@string/orders" />
+
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/logout_img"
@@ -44,4 +62,5 @@
         </menu>
 
     </item>
+
 </menu>

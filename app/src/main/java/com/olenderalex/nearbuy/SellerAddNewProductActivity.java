@@ -54,7 +54,6 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
 
     private ProgressDialog loadingBar;
 
-    private Button logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,30 +105,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
                 validateProductData();
             }
         });
-
-
         loadingBar = new ProgressDialog(this);
-
-
-
-        //Logout-------------------------------------------------------------------
-
-        logoutBtn=findViewById(R.id.logout_btn_seller);
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                //Delete seller's password and phone number from phone memory
-                Paper.book().destroy();
-
-
-                Intent intent = new Intent(SellerAddNewProductActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-//------------------------------------------------------------------------------------------------------
     }
 
     /*
@@ -161,7 +137,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
     {
         description = inputDescriptionEt.getText().toString();
         price = inputPriceEt.getText().toString();
-        productName = inputProductNameEt.getText().toString();
+        productName = inputProductNameEt.getText().toString().toUpperCase();
 
 
         if (imageUri == null)
@@ -195,15 +171,14 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
+
+        //Creating a unique key for each product
         Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("ddMMyyyy");
         saveCurrentDate = currentDate.format(calendar.getTime());
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        SimpleDateFormat currentTime = new SimpleDateFormat("HHmmss");
         saveCurrentTime = currentTime.format(calendar.getTime());
-
-        productRandomKey = saveCurrentDate + saveCurrentTime;
+        productRandomKey = productName+saveCurrentDate + saveCurrentTime;
 
 
         final StorageReference filePath = productsImagesRef.child(imageUri.getLastPathSegment() + productRandomKey + ".jpg");

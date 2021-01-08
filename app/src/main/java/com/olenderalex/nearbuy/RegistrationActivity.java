@@ -98,11 +98,25 @@ public class RegistrationActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                // User registration
                 if(!(snapshot.child(parentDbName).child(phone).exists())){
-                    HashMap <String, Object> userDataMap= new HashMap<>();
-                    userDataMap.put(Util.userPhone,phone);
-                    userDataMap.put(Util.userPassword,password);
-                    userDataMap.put(Util.userName,name);
+                    HashMap<String, Object> userDataMap = new HashMap<>();
+                    if(parentDbName.equals(Util.usersDbName)) {
+                        userDataMap.put(Util.userPhone, phone);
+                        userDataMap.put(Util.userPassword, password);
+                        userDataMap.put(Util.userName, name);
+                        userDataMap.put(Util.userAddress, "");
+                        userDataMap.put(Util.userCity, "");
+                    }
+                    //Admin registration
+                    else
+                    {
+                        userDataMap.put(Util.adminPhoneKey, phone);
+                        userDataMap.put(Util.adminPasswordKey, password);
+                        userDataMap.put(Util.adminName, name);
+                    }
 
 
                     RootRef.child(parentDbName).child(phone).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -112,7 +126,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 Toast.makeText(RegistrationActivity.this ,"Your account created.",Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
 
-                                Intent intentLogin =new Intent(RegistrationActivity.this,LoginActivity.class);
+                                Intent intentLogin =new Intent(RegistrationActivity.this,MainActivity.class);
                                 startActivity(intentLogin);
                             }else
                                 Toast.makeText(RegistrationActivity.this ,"Ooops ,there are some problems. Please try again",Toast.LENGTH_LONG).show();

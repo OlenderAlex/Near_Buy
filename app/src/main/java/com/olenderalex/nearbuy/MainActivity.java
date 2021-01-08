@@ -9,9 +9,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +26,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginBtnUser;
-    private Button loginBtnSeller;
-    private Button sellerSighUpBtn;
+    private TextView loginAdminTv;
+    private TextView adminSighUpTv;
     private Button userSignUpBtn;
     private String parentDbName;
 
@@ -38,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginBtnUser = findViewById(R.id.btn_login_user);
-        sellerSighUpBtn = findViewById(R.id.btn_seller_signUp);
+        adminSighUpTv = findViewById(R.id.signup_admin);
         userSignUpBtn = findViewById(R.id.btn_user_signUp);
+        loginAdminTv = findViewById(R.id.btn_login_seller);
+
+
         loadingBar = new ProgressDialog(this);
-        loginBtnSeller = findViewById(R.id.btn_login_seller);
-
-
-
 
         loginBtnUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentLogin);
             }
         });
-        loginBtnSeller.setOnClickListener(new View.OnClickListener() {
+        loginAdminTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
-                intentLogin.putExtra("Table name", Util.sellerDbName);
+                intentLogin.putExtra("Table name", Util.adminDbName);
                 startActivity(intentLogin);
             }
         });
@@ -70,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentReg);
             }
         });
-        sellerSighUpBtn.setOnClickListener(new View.OnClickListener() {
+        adminSighUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentReg = new Intent(MainActivity.this, RegistrationActivity.class);
-                intentReg.putExtra("Table name", Util.sellerDbName);
+                intentReg.putExtra("Table name", Util.adminDbName);
                 startActivity(intentReg);
             }
         });
@@ -89,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
         String userPasswordKey = Paper.book().read(Util.userPasswordKey);
         parentDbName = Paper.book().read(Util.currentUserDbName);
 
-        String sellerPhoneKey = Paper.book().read(Util.sellerPhoneKey);
-        String sellerPasswordKey = Paper.book().read(Util.sellerPasswordKey);
+        String sellerPhoneKey = Paper.book().read(Util.adminPhoneKey);
+        String sellerPasswordKey = Paper.book().read(Util.adminPasswordKey);
 
 
-        if (!userPhoneKey.equals("") && !userPasswordKey.equals("")) {
+        if (userPhoneKey != "" && userPasswordKey != "") {
             if (!TextUtils.isEmpty(userPhoneKey) && !TextUtils.isEmpty(userPasswordKey)) {
                 allowAccess(userPhoneKey, userPasswordKey);
 
@@ -104,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (!sellerPhoneKey.equals("") && !sellerPasswordKey.equals("")) {
+        if (userPhoneKey != "" && userPasswordKey != "")  {
             if (!TextUtils.isEmpty(sellerPhoneKey) && !TextUtils.isEmpty(sellerPasswordKey)) {
-                parentDbName= Util.sellerDbName;
+                parentDbName= Util.adminDbName;
                 allowAccess(sellerPhoneKey, sellerPasswordKey);
 
                 loadingBar.setTitle("You are logging in....");
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                             /*
                             Entering as seller
                              */
-                            if (parentDbName.equals(Util.sellerDbName)) {
+                            if (parentDbName.equals(Util.adminDbName)) {
 
                                 loadingBar.dismiss();
                                 Intent intent = new Intent(MainActivity.this, SellerCategoryActivity.class);

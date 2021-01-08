@@ -104,8 +104,8 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             else {
-                Paper.book().write(Util.sellerPhoneKey, phone);
-                Paper.book().write(Util.sellerPasswordKey, password);
+                Paper.book().write(Util.adminPhoneKey, phone);
+                Paper.book().write(Util.adminPasswordKey, password);
                 Paper.book().write(Util.currentUserDbName, parentDbName);
             }
         }
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                             /*
                             Entering a shop owner account
                              */
-                            if (parentDbName.equals(Util.sellerDbName)) {
+                            if (parentDbName.equals(Util.adminDbName)) {
 
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
@@ -153,13 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Util.currentOnlineUser= userData;
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-
-
-
-
                                 startActivity(intent);
-
-
 
                             }
 

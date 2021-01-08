@@ -14,6 +14,7 @@ import android.os.FileUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +41,9 @@ import java.util.Objects;
 public class SettingsActivity extends AppCompatActivity {
     private CircleImageView profileImage;
     private EditText nameEt,phoneEt,addressEt,passwordEt;
-    private TextView updateAccountImageTextBtn , closeTextBtn, saveTextButton;
+    private TextView updateAccountImageTextBtn , closeTextBtn;
 
+    private Button saveBtn;
     private StorageTask uploadTask;
 
     private Uri imageUri;
@@ -69,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         addressEt=findViewById(R.id.settings_address);
         updateAccountImageTextBtn=findViewById(R.id.settings_update_profile_pic);
         closeTextBtn=findViewById(R.id.settings_close);
-        saveTextButton=findViewById(R.id.settings_save);
+        saveBtn=findViewById(R.id.settings_save);
 
         userInfoDisplay(profileImage,nameEt, phoneEt,addressEt);
 
@@ -81,17 +83,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        saveTextButton.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(clicked){
-
-                    userInfoSaved();
-                }
-                else{
-
-                    updateOnlyUserInfo();
-                }
+                    fillUserInfo();
             }
         });
 
@@ -131,22 +126,54 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-    private void userInfoSaved() {
+    private void fillUserInfo() {
+        String phone,name,password;
 
-        if(TextUtils.isEmpty(nameEt.getText().toString())){
+        phone=phoneEt.getText().toString().trim();
+        name=nameEt.getText().toString().trim();
+        password=passwordEt.getText().toString().trim();
+        if(TextUtils.isEmpty(phone) ){
+            Toast.makeText(SettingsActivity.this, "Enter your phone number", Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(name)){
             Toast.makeText(SettingsActivity.this,"Enter your name",Toast.LENGTH_SHORT).show();
         }
-        if(TextUtils.isEmpty(passwordEt.getText().toString())){
+        else if(TextUtils.isEmpty(password)){
             Toast.makeText(SettingsActivity.this,"Enter your password",Toast.LENGTH_SHORT).show();
-        }if(TextUtils.isEmpty(phoneEt.getText().toString())){
-            Toast.makeText(SettingsActivity.this,"Enter your phone number",Toast.LENGTH_SHORT).show();
-        }if(TextUtils.isEmpty(addressEt.getText().toString())){
-            Toast.makeText(SettingsActivity.this,"Enter your address",Toast.LENGTH_SHORT).show();
         }
         else if(clicked){
             uploadImage();
-        }
+        }else
+        updateOnlyUserInfo();
+
     }
+
+
+
+
+    //Update user personal information in Firebase
+
+    private void updateOnlyUserInfo() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(parentDbName);
+
+        HashMap<String, Object> userMap = new HashMap<>();
+        userMap.put(Util.userName, nameEt.getText().toString());
+        userMap.put(Util.userPassword, passwordEt.getText().toString());
+        userMap.put(Util.userPhone, phoneEt.getText().toString());
+        userMap.put(Util.userAddress, addressEt.getText().toString());
+
+        ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
+
+        startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+        finish();
+
+    }
+
+
+
+
+
 
     private void uploadImage() {
 
@@ -208,29 +235,6 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(SettingsActivity.this, "Image is not selected", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    private void updateOnlyUserInfo() {
-
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Util.currentUserDbName);
-
-        HashMap<String, Object> userMap = new HashMap<>();
-        userMap.put(Util.userName, nameEt.getText().toString());
-        userMap.put(Util.userPassword, passwordEt.getText().toString());
-        userMap.put(Util.userPhone, phoneEt.getText().toString());
-        userMap.put(Util.userAddress, addressEt.getText().toString());
-
-        ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
-
-        startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
-        finish();
-
-
-
-    }
-
-
 
 
 

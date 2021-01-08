@@ -42,7 +42,7 @@ public class SellerDisplayConfirmedOrderByUser extends AppCompatActivity {
 
         cartListRef= FirebaseDatabase.getInstance().getReference()
                 .child(Util.cartListStDbName)
-                .child(Util.sellerView)
+                .child(Util.usersView)
                 .child(userId)
                 .child(Util.orders);
 

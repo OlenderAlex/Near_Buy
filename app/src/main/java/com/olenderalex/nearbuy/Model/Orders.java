@@ -2,16 +2,16 @@ package com.olenderalex.nearbuy.Model;
 
 import static com.olenderalex.nearbuy.Utils.Util.totalPrice;
 
-public class SellerOrders {
+public class Orders {
 
     private String total_price, address, city, uploaded_at_date, uploaded_at_time;
     private String name, phone, state;
 
-    public SellerOrders() {
+    public Orders() {
 
     }
 
-    public SellerOrders(String total_price, String address, String city, String uploaded_at_date, String uploaded_at_time, String name, String phone, String state) {
+    public Orders(String total_price, String address, String city, String uploaded_at_date, String uploaded_at_time, String name, String phone, String state) {
         this.total_price = total_price;
         this.address = address;
         this.city = city;

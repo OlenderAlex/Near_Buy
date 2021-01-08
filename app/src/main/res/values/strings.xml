@@ -96,4 +96,11 @@
     <string name="price1">Price</string>
     <string name="you_order_was_chippd">Your order was shipped</string>
     <string name="your_order_notshipped">Your order is not shipped yet. It will be shipped soon.</string>
+    <string name="search">Search</string>
+    <string name="login_as_an_admin">login as an admin</string>
+    <string name="new_admin">New Admin?</string>
+    <string name="login_as_admin">Login as admin</string>
+    <string name="favorite">favorite</string>
+    <string name="find_your_product">Find your product</string>
+
 </resources>

@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".SellerDisplayConfirmedOrderByUser"></activity>
+        <activity android:name=".SearchByCategoryActivity"></activity>
+        <activity android:name=".SearchProductsActivity" />
+        <activity android:name=".SellerDisplayConfirmedOrderByUser" />
         <activity android:name=".SellerNewOrdersActivity" />
         <activity android:name=".UserOrdersActivity" />
         <activity android:name=".ConfirmOrderActivity" />

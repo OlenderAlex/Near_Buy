@@ -12,11 +12,11 @@ public class Util {
     public static final String userId="id";
 
 
-    public static final String sellerPhoneKey="sellerPhoneKey";
-    public static final String sellerPasswordKey="sellerPasswordKey";
+    public static final String adminPhoneKey="adminPhoneKey";
+    public static final String adminPasswordKey="adminPasswordKey";
 
     public static final String usersDbName="Users";
-    public static final String sellerDbName="StoreOwner";
+    public static final String adminDbName="Admins";
     public static final String productsDbName="Products";
 
     public static final String productsImagesStorageName="Product images";
@@ -34,10 +34,11 @@ public class Util {
 
 
 
-    public static final String sellerName="name";
+    public static final String adminName="name";
     public static final String sellerPassword="password";
     public static final String sellerPhone="phone";
     public static final String sellerImage="image";
+    public static final String sellerCity="city";
     public static final String sellerAddress="address";
 
 
@@ -55,10 +56,10 @@ public class Util {
     public static final String productsQuantity="quantity";
 
 
-    public static final String usersCart="Users cart";
+    public static final String usersView="User view";
     public static final String usersProductsInCart="Users Products in cart";
 
-    public static final String sellerView="Seller view";
+    public static final String adminView="Admin view";
     public static final String orders="Orders";
     public static final String newOrders="New Orders";
 

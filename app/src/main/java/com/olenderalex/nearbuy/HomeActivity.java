@@ -89,10 +89,17 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
+        /*
+        retrieve all products data from realtime database
+         */
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>().
                 setQuery(productsRef, Products.class).build();
 
 
+
+        /*
+        display the product data in recycler view on HomeActivity
+         */
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
                     @Override
@@ -140,14 +147,23 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
+                startActivity(intent);
+                return true;
 
-//        if (id == R.id.action_settings)
-//        {
-//            return true;
-//        }
+            case R.id.action_favorite:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
 
-        return super.onOptionsItemSelected(item);
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 
@@ -163,16 +179,18 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         }
         if (id == R.id.nav_my_account) {
 
+            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
-        if (id == R.id.nav_saved_items) {
+        if (id == R.id.nav_category) {
 
         }
         if (id == R.id.nav_orders) {
             Intent intent =new Intent(HomeActivity.this,UserOrdersActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.nav_settings) {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+        if (id == R.id.nav_search) {
+            Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
             startActivity(intent);
         }
 
@@ -189,9 +207,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
 
 
     // 1 - Configure Toolbar

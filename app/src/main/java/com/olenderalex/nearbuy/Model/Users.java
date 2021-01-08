@@ -1,18 +1,27 @@
 package com.olenderalex.nearbuy.Model;
 
 public class Users {
-    private String name ,phone,password ,image ,address;
+    private String name ,phone,password ,image ,address,city;
 
     public Users(){
 
     }
 
-    public Users(String name, String phone, String password, String image, String address) {
+    public Users(String name, String phone, String password, String image, String address,String city) {
         this.name = name;
         this.phone = phone;
         this.password = password;
         this.image = image;
         this.address = address;
+        this.city=city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getName() {

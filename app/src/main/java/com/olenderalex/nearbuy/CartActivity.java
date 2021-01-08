@@ -68,7 +68,7 @@ public class CartActivity extends AppCompatActivity {
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child(Util.cartListStDbName);
         FirebaseRecyclerOptions <Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-                .setQuery(cartListRef.child(Util.usersCart)
+                .setQuery(cartListRef.child(Util.usersView)
                         .child(Util.currentOnlineUser.getPhone())
                         .child(Util.usersProductsInCart),Cart.class)
                  .build();
@@ -114,7 +114,7 @@ public class CartActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 if(which==1){
-                                    cartListRef.child(Util.usersCart)
+                                    cartListRef.child(Util.usersView)
                                             .child(Util.currentOnlineUser.getPhone())
                                             .child(Util.usersProductsInCart)
                                             .child(model.getId())

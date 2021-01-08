@@ -18,7 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.olenderalex.nearbuy.Model.SellerOrders;
+import com.olenderalex.nearbuy.Model.Orders;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.SellerOrdersViewHolder;
 
@@ -44,15 +44,15 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<SellerOrders> options=
-                new FirebaseRecyclerOptions.Builder<SellerOrders>()
-                .setQuery(ordersRef,SellerOrders.class)
+        FirebaseRecyclerOptions<Orders> options=
+                new FirebaseRecyclerOptions.Builder<Orders>()
+                .setQuery(ordersRef, Orders.class)
                 .build();
 
-        FirebaseRecyclerAdapter<SellerOrders, SellerOrdersViewHolder> adapter =
-                new FirebaseRecyclerAdapter<SellerOrders, SellerOrdersViewHolder>(options) {
+        FirebaseRecyclerAdapter<Orders, SellerOrdersViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Orders, SellerOrdersViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull SellerOrdersViewHolder holder, final int position, @NonNull final SellerOrders model) {
+                    protected void onBindViewHolder(@NonNull SellerOrdersViewHolder holder, final int position, @NonNull final Orders model) {
 
                         holder.userName.setText(model.getName());
                         holder.userPhone.setText("Phone : "+model.getPhone());

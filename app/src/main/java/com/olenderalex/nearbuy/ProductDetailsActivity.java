@@ -113,7 +113,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         cartMap.put(Util.productsQuantity, numberOfProductsBtn.getNumber());
         cartMap.put(Util.productDiscount, "");
 
-        carListRef.child(Util.usersCart).child(Util.currentOnlineUser.getPhone())
+        carListRef.child(Util.usersView).child(Util.currentOnlineUser.getPhone())
                 .child(Util.usersProductsInCart).child(productID)
                 .updateChildren(cartMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -122,7 +122,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            carListRef.child(Util.sellerView).child(Util.currentOnlineUser.getPhone())
+                            carListRef.child(Util.adminView).child(Util.currentOnlineUser.getPhone())
                                     .child(Util.orders).child(productID)
                                     .updateChildren(cartMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
