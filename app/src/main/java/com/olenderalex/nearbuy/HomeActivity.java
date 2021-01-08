@@ -183,7 +183,8 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
             startActivity(intent);
         }
         if (id == R.id.nav_category) {
-
+            Intent intent =new Intent(HomeActivity.this,SearchByCategoryActivity.class);
+            startActivity(intent);
         }
         if (id == R.id.nav_orders) {
             Intent intent =new Intent(HomeActivity.this,UserOrdersActivity.class);
@@ -191,6 +192,9 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         }
         if (id == R.id.nav_search) {
             Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
+            Bundle data =new Bundle();
+            data.putString(Util.productCategory, "no category");
+            intent.putExtras(data);
             startActivity(intent);
         }
 

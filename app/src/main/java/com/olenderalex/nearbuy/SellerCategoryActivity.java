@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.olenderalex.nearbuy.Utils.Util;
+
 public class SellerCategoryActivity extends AppCompatActivity {
 
     private ImageView computers;
@@ -43,7 +45,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Computers");
+                intent.putExtra(Util.productCategory,"Computers");
                 startActivity(intent);
             }
         });
@@ -52,7 +54,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Appliances");
+                intent.putExtra(Util.productCategory,"Appliances");
                 startActivity(intent);
             }
         });
@@ -60,7 +62,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Smartphones");
+                intent.putExtra(Util.productCategory,"Smartphones");
                 startActivity(intent);
             }
         });
@@ -68,7 +70,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Clothes");
+                intent.putExtra(Util.productCategory,"Clothes");
                 startActivity(intent);
             }
         });
@@ -76,7 +78,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Toys");
+                intent.putExtra(Util.productCategory,"Toys");
                 startActivity(intent);
             }
         });
@@ -84,7 +86,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Sporting Goods");
+                intent.putExtra(Util.productCategory,"Sporting Goods");
                 startActivity(intent);
             }
         });
@@ -92,7 +94,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Food");
+                intent.putExtra(Util.productCategory,"Food");
                 startActivity(intent);
             }
         });
@@ -100,7 +102,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","Fruits And Vegetables");
+                intent.putExtra(Util.productCategory,"Fruits And Vegetables");
                 startActivity(intent);
             }
         });
@@ -108,7 +110,7 @@ public class SellerCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(SellerCategoryActivity.this,SellerAddNewProductActivity.class);
-                intent.putExtra("category","For Pets");
+                intent.putExtra(Util.productCategory,"For Pets");
                 startActivity(intent);
             }
         });

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,12 +30,23 @@ public class SearchProductsActivity extends AppCompatActivity {
     private EditText inputText;
     private RecyclerView searchList;
 
-    private String searchInput;
+    private String searchInput,categoryName="";
     private int price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_products);
+        /*
+        receive name of chosen category
+        */
+        Bundle data = getIntent().getExtras();
+        if(data != null) {
+            categoryName = data.getString(Util.productCategory);
+
+            Toast.makeText(SearchProductsActivity.this, categoryName, Toast.LENGTH_LONG).show();
+
+        }
+        Log.i("name",categoryName);
 
         inputText=findViewById(R.id.et_input_text);
         searchBtn=findViewById(R.id.btn_search);
@@ -42,27 +54,45 @@ public class SearchProductsActivity extends AppCompatActivity {
 
         searchList.setLayoutManager(new LinearLayoutManager(SearchProductsActivity.this));
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchInput=inputText.getText().toString().toUpperCase();
-                startSearching();
-            }
-        });
+
+        // if category is not defined
+       if(categoryName.equals("")) {
+           searchBtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   searchInput = inputText.getText().toString().toUpperCase();
+                   startSearching();
+               }
+           });
+       }else {
+           startSearching();
+       }
 
     }
 
   public void startSearching()
   {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child(Util.productsDbName);
-
+      FirebaseRecyclerOptions<Products> options;
+        if(categoryName.equals("")) {
         /*
         retrieve data of products by input word in search bar
          */
-        FirebaseRecyclerOptions <Products> options =
-                new FirebaseRecyclerOptions.Builder<Products>()
-                .setQuery(databaseRef.orderByChild(Util.productName).startAt(searchInput),Products.class)
-                .build();
+         options = new FirebaseRecyclerOptions.Builder<Products>()
+                 .setQuery(databaseRef.orderByChild(Util.productName)
+                         .startAt(searchInput), Products.class)
+                            .build();
+        }else
+            {
+            /*
+        retrieve data of all products in particular category
+         */
+
+                options = new FirebaseRecyclerOptions.Builder<Products>()
+                        .setQuery(databaseRef.orderByChild(Util.productCategory)
+                                .startAt(categoryName), Products.class)
+                        .build();
+        }
 
 
         /*

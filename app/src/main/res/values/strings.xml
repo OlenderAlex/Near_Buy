@@ -102,5 +102,7 @@
     <string name="login_as_admin">Login as admin</string>
     <string name="favorite">favorite</string>
     <string name="find_your_product">Find your product</string>
+    <string name="choose_the_category_of_product_you_want_to_add">Choose the category of product you want to add</string>
+    <string name="choose_a_category_to_find">CHOOSE A CATEGORY TO FIND</string>
 
 </resources>

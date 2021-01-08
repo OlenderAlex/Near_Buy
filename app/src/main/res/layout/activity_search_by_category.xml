@@ -16,41 +16,20 @@ android:background="@color/white"
     android:layout_height="43dp">
 
     <TextView
-        android:id="@+id/add_new_product_category_tv"
-        android:layout_width="wrap_content"
+        android:id="@+id/search_by_category_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:gravity="center"
-        android:text="@string/my_store"
+        android:text="@string/choose_a_category_to_find"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginStart="50dp"/>
-
-    <Button
-        android:id="@+id/logout_btn_seller_category"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="5dp"
-        android:layout_weight="1"
-        android:background="@drawable/logout_img"
-        android:textColor="@color/black"
-
-        />
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>
-<TextView
-    android:id="@+id/slogan_category_tv"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Choose the category of product you want to add"
-    android:inputType="textMultiLine"
-    android:textAlignment="center"
-    android:textColor="@android:color/black"
-    android:textSize="25sp"
-    android:layout_margin="30dp"
-    />
-<LinearLayout
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -69,7 +48,7 @@ android:background="@color/white"
         >
 
         <ImageView
-            android:id="@+id/category_comps"
+            android:id="@+id/search_by_category_comps"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/comps"
@@ -82,7 +61,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_appliances"
+            android:id="@+id/search_by_category_appliances"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/electronics1"
@@ -95,7 +74,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_phones"
+            android:id="@+id/search_by_category_phones"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -112,15 +91,14 @@ android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/slogan_category_tv"
+
         android:gravity="center"
         android:layout_weight="1"
         android:weightSum="3"
         >
 
         <ImageView
-            android:id="@+id/category_clothes"
+            android:id="@+id/search_by_category_clothes"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/shirt_color"
@@ -134,7 +112,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_toys"
+            android:id="@+id/search_by_category_toys"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -148,7 +126,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_sport"
+            android:id="@+id/search_by_category_sport"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -165,20 +143,19 @@ android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/slogan_category_tv"
         android:gravity="center"
         android:weightSum="3"
         android:layout_weight="1"
         >
 
         <ImageView
-            android:id="@+id/category_food"
+            android:id="@+id/search_by_category_food"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:src="@drawable/groceries"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            tools:ignore="NestedWeights" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -186,7 +163,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_fruits"
+            android:id="@+id/search_by_category_fruits"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -199,7 +176,7 @@ android:background="@color/white"
             android:layout_marginTop="5dp"/>
 
         <ImageView
-            android:id="@+id/category_pets"
+            android:id="@+id/search_by_category_pets"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -214,13 +191,6 @@ android:background="@color/white"
     </LinearLayout>
 
 </LinearLayout>
-<Button
-    android:id="@+id/check_new_orders_btn_seller_category"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/buttons"
-    android:text="@string/check_new_orders"
-    android:textColor="@color/white"
-    android:layout_margin="50dp"/>
+
 
 </LinearLayout>
