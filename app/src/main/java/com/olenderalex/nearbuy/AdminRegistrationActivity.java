@@ -1,4 +1,3 @@
-
 package com.olenderalex.nearbuy;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -25,30 +23,27 @@ import com.olenderalex.nearbuy.Utils.Util;
 
 import java.util.HashMap;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class AdminRegistrationActivity extends AppCompatActivity {
 
     private Button signUpBtn;
-    private EditText nameEt;
-    private EditText phoneEt;
+    private EditText nameEt,loginEt;
     private EditText passwordEt,confirmPasswordEt;
     private ProgressDialog loadingBar;
-    private String parentDbName;
-
+    private String parentDbName=Util.adminDbName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_admin_registration);
 
-        parentDbName=getIntent().getExtras().get("Table name").toString();
-        signUpBtn=findViewById(R.id.registr_create_new_account_btn);
-        nameEt=findViewById(R.id.register_name_et);
-        phoneEt=findViewById(R.id.register_phone_et);
-        passwordEt=findViewById(R.id.register_password_et);
-        confirmPasswordEt=findViewById(R.id.register_confirm_password_et);
+
+
+        signUpBtn=findViewById(R.id.admin_reg_create_new_account_btn);
+        nameEt=findViewById(R.id.admin_reg_name_et);
+        loginEt=findViewById(R.id.login_admin_reg);
+        passwordEt=findViewById(R.id.pass_admin_reg);
+        confirmPasswordEt=findViewById(R.id.confirm_pass_admin_reg);
 
         loadingBar=new ProgressDialog(this);
-
-
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,17 +51,15 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
-
-
     //Creating an new account and storing the data in database
     private void CreateAccount(){
-        String phone=phoneEt.getText().toString();
+        String login=loginEt.getText().toString();
         String name=nameEt.getText().toString();
         String password=passwordEt.getText().toString();
         String confirmPass=confirmPasswordEt.getText().toString();
 
-        if(TextUtils.isEmpty(phone)){
-            Toast.makeText(this,"Please Enter your phone number.",Toast.LENGTH_LONG).show();
+        if(TextUtils.isEmpty(login)){
+            Toast.makeText(this,"Please Enter your login number.",Toast.LENGTH_LONG).show();
         }
         else if(TextUtils.isEmpty((name))){
             Toast.makeText(this,"Please Enter your name.",Toast.LENGTH_LONG).show();
@@ -85,13 +78,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
             //Checking if an account with the same email exists
 
-            ValidatePhoneNumber(name , phone ,password);
+            createAdminAccount(name , login ,password);
         }
     }
 
 
     //Checking if an account with the same email exists
-    private void ValidatePhoneNumber(final String name,final String phone,final  String password) {
+    private void createAdminAccount(final String name,final String login,final  String password) {
         final DatabaseReference RootRef;
         RootRef= FirebaseDatabase.getInstance().getReference();
 
@@ -101,42 +94,30 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                 // User registration
-                if(!(snapshot.child(parentDbName).child(phone).exists())){
+                if(!(snapshot.child(parentDbName).child(login).exists())){
                     HashMap<String, Object> userDataMap = new HashMap<>();
-                    if(parentDbName.equals(Util.usersDbName)) {
-                        userDataMap.put(Util.userPhone, phone);
-                        userDataMap.put(Util.userPassword, password);
-                        userDataMap.put(Util.userName, name);
-                        userDataMap.put(Util.userAddress, "");
-                        userDataMap.put(Util.userCity, "");
-                    }
-                    //Admin registration
-                    else
-                    {
-                        userDataMap.put(Util.adminPhoneKey, phone);
-                        userDataMap.put(Util.adminPasswordKey, password);
+                        userDataMap.put(Util.adminLogin, login);
+                        userDataMap.put(Util.adminPassword, password);
                         userDataMap.put(Util.adminName, name);
-                    }
 
-
-                    RootRef.child(parentDbName).child(phone).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    RootRef.child(parentDbName).child(login).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(RegistrationActivity.this ,"Your account created.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(AdminRegistrationActivity.this ,"Your account created.",Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
 
-                                Intent intentLogin =new Intent(RegistrationActivity.this,MainActivity.class);
+                                Intent intentLogin =new Intent(AdminRegistrationActivity.this,MainActivity.class);
                                 startActivity(intentLogin);
                             }else
-                                Toast.makeText(RegistrationActivity.this ,"Ooops ,there are some problems. Please try again",Toast.LENGTH_LONG).show();
+                                Toast.makeText(AdminRegistrationActivity.this ,"Ooops ,there are some problems. Please try again",Toast.LENGTH_LONG).show();
 
                         }
                     });
 
                 }
                 else{
-                    Toast.makeText(RegistrationActivity.this ,"This phone number already exists",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminRegistrationActivity.this ,"This phone number already exists",Toast.LENGTH_LONG).show();
                     loadingBar.dismiss();
                 }
             }

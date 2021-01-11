@@ -22,7 +22,7 @@ import com.olenderalex.nearbuy.Model.Orders;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.SellerOrdersViewHolder;
 
-public class SellerNewOrdersActivity extends AppCompatActivity {
+public class AdminNewOrdersActivity extends AppCompatActivity {
 
     private RecyclerView ordersList;
     private DatabaseReference  ordersRef;
@@ -31,7 +31,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seller_new_orders);
+        setContentView(R.layout.activity_admin_new_orders);
 
         ordersRef = FirebaseDatabase.getInstance().getReference().child(Util.confirmedOrders);
 
@@ -64,7 +64,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 String userId =getRef(position).getKey();
-                                Intent intent =new Intent(SellerNewOrdersActivity.this , SellerDisplayConfirmedOrderByUser.class);
+                                Intent intent =new Intent(AdminNewOrdersActivity.this , SellerDisplayConfirmedOrderByUser.class);
 
                                 //send phone number to display in  SellerDisplayConfirmedOrderByUser
                                 //products that ordered
@@ -84,7 +84,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
                                         "No"
                                 };
 
-                                AlertDialog.Builder builder =new AlertDialog.Builder(SellerNewOrdersActivity.this);
+                                AlertDialog.Builder builder =new AlertDialog.Builder(AdminNewOrdersActivity.this);
                                 final AlertDialog optionDialog = builder.create();
 
                                 builder.setTitle("Is order is delivered?");
@@ -96,7 +96,7 @@ public class SellerNewOrdersActivity extends AppCompatActivity {
                                         {
                                             String userId =getRef(position).getKey();
                                             removeOrder(userId);
-                                            Toast.makeText(SellerNewOrdersActivity.this,"Order removed",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(AdminNewOrdersActivity.this,"Order removed",Toast.LENGTH_LONG).show();
                                         }
                                         else{
                                             optionDialog.dismiss();

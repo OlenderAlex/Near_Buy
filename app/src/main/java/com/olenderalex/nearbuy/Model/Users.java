@@ -7,7 +7,7 @@ public class Users {
 
     }
 
-    public Users(String name, String phone, String password, String image, String address,String city) {
+    public Users(String name,String id, String phone, String password, String image, String address,String city) {
         this.name = name;
         this.phone = phone;
         this.password = password;

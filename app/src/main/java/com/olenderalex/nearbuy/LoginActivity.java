@@ -8,7 +8,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.olenderalex.nearbuy.Model.Admin;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Users;
 
@@ -27,13 +27,10 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText inputPhoneNumber, inputPassword;
+    private EditText inputLogin, inputPassword;
     private Button loginButton;
     private ProgressDialog loadingBar;
-
-
     private String parentDbName;
-
     private CheckBox chkBoxRememberMe;
 
 
@@ -43,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginButton = findViewById(R.id.btn_login);
-        inputPhoneNumber = findViewById(R.id.phone_number_login);
+        inputLogin = findViewById(R.id.phone_number_login);
         inputPassword = findViewById(R.id.pass_et_login);
         loadingBar = new ProgressDialog(this);
 
@@ -67,17 +64,21 @@ public class LoginActivity extends AppCompatActivity {
     Checking if the data that user typed is correct
      */
     public void LoginUser() {
-        String phone = inputPhoneNumber.getText().toString();
+        String login = inputLogin.getText().toString();
         String password = inputPassword.getText().toString();
 
-        if (TextUtils.isEmpty(phone)) {
+        //check if phone is entered
+        if (TextUtils.isEmpty(login)) {
             Toast.makeText(this, "Please Enter your phone number.", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(password)) {
+        }
+        else
+        //check if password is entered
+        if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please Enter a password.", Toast.LENGTH_LONG).show();
         } else {
 
 
-            AllowAccountAccess(phone, password);
+            allowAccountAccess(login, password);
             loadingBar.setTitle("Log in...");
             loadingBar.setMessage("Please wait...");
             loadingBar.setCanceledOnTouchOutside(false);
@@ -92,23 +93,10 @@ public class LoginActivity extends AppCompatActivity {
     Allowing or denying access to user account
      */
 
-    private void AllowAccountAccess(final String phone, final String password) {
+    private void allowAccountAccess(final String login, final String password) {
 
-        //Saving user account data in android phone memory for staying logged in
-        if (chkBoxRememberMe.isChecked()) {
-            if (parentDbName.equals(Util.usersDbName)) {
-                Paper.book().write(Util.userPhoneKey, phone);
-                Paper.book().write(Util.userPasswordKey, password);
-                Paper.book().write(Util.currentUserDbName, parentDbName);
+        checkBoxCheck(login,password);
 
-            }
-
-            else {
-                Paper.book().write(Util.adminPhoneKey, phone);
-                Paper.book().write(Util.adminPasswordKey, password);
-                Paper.book().write(Util.currentUserDbName, parentDbName);
-            }
-        }
 
 
         final DatabaseReference RootRef;
@@ -117,58 +105,63 @@ public class LoginActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(parentDbName).child(phone).exists()) {
-
-                    Users userData = snapshot.child(parentDbName).child(phone).getValue(Users.class);
-
-                    // Checking if account with entered phone number exists in data base
-                    if (Objects.requireNonNull(userData).getPhone().equals(phone)) {
-
-                        if (userData.getPassword().equals(password)) {
-
-                            /*
-                            Entering a shop owner account
-                             */
-                            if (parentDbName.equals(Util.adminDbName)) {
-
-                                Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
-                                loadingBar.dismiss();
-
-                                //Current online user
-                                Util.currentOnlineUser= userData;
-
-                                Intent intent = new Intent(LoginActivity.this, SellerCategoryActivity.class);
-                                startActivity(intent);
-                            }
+                if (snapshot.child(parentDbName).child(login).exists()) {
 
 
-                            /*
-                            Entering a user account
-                             */
+                    //Log in for users
+                    if (parentDbName.equals(Util.usersDbName)) {
+                        Users userData = snapshot.child(parentDbName).child(login).getValue(Users.class);
 
-                            else if (parentDbName.equals(Util.usersDbName)) {
+                        // Checking if account with entered phone number exists in data base
+                        if (Objects.requireNonNull(userData).getPhone().equals(login)) {
+                            if (userData.getPassword().equals(password)) {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
                                 //Current online user
-                                Util.currentOnlineUser= userData;
-
+                                Util.currentOnlineUser = userData;
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
 
+                            } else {
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
                             }
 
                         } else {
                             loadingBar.dismiss();
-                            Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this,
+                                    "Account with this login or phone number do not exists", Toast.LENGTH_LONG).show();
                         }
                     }
 
-                } else {
-                    loadingBar.dismiss();
-                    Toast.makeText(LoginActivity.this,
-                            "Account with this phone number do not exists", Toast.LENGTH_LONG).show();
+
+                    //Log in for admins
+                    if (parentDbName.equals(Util.adminDbName)) {
+                        Admin adminData = snapshot.child(parentDbName).child(login).getValue(Admin.class);
+                        // Checking if account with entered logi exists in data base
+                        if (Objects.requireNonNull(adminData).getLogin().equals(login)) {
+
+                            if (adminData.getPassword().equals(password)) {
+                                Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
+                                loadingBar.dismiss();
+                                //Current online admin
+                                Util.currentOnlineAdmin = adminData;
+                                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                startActivity(intent);
+
+                            } else {
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            loadingBar.dismiss();
+                            Toast.makeText(LoginActivity.this,
+                                    "Account with this login or phone number do not exists", Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -176,4 +169,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void checkBoxCheck(final String login, final String password) {
+
+        //Saving user account data in android phone memory for staying logged in
+        if (chkBoxRememberMe.isChecked()) {
+            if (parentDbName.equals(Util.usersDbName)) {
+                Paper.book().write(Util.userPhoneKey, login);
+                Paper.book().write(Util.userPasswordKey, password);
+                Paper.book().write(Util.currentUserDbName, parentDbName);
+
+            }
+
+            else {
+                Paper.book().write(Util.adminLoginKey, login);
+                Paper.book().write(Util.adminPasswordKey, password);
+                Paper.book().write(Util.currentUserDbName, parentDbName);
+            }
+        }
+    }
+
 }

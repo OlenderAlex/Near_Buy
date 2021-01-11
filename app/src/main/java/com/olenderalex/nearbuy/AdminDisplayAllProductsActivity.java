@@ -24,74 +24,41 @@ import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.ProductViewHolder;
 import com.squareup.picasso.Picasso;
 
-public class SearchProductsActivity extends AppCompatActivity {
-
+public class AdminDisplayAllProductsActivity extends AppCompatActivity {
     private Button searchBtn;
     private EditText inputText;
     private RecyclerView searchList;
-    private String searchInput,categoryName="";
 
+    private String searchInput="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_products);
-        /*
-        receive name of chosen category
-        */
-        Bundle data = getIntent().getExtras();
-        if(data != null) {
-            categoryName = data.getString(Util.productCategory);
+        setContentView(R.layout.activity_admin_display_all_products);
 
-            Toast.makeText(SearchProductsActivity.this, categoryName, Toast.LENGTH_LONG).show();
-
-        }
-        Log.i("name",categoryName);
-
-        inputText=findViewById(R.id.et_input_text);
-        searchBtn=findViewById(R.id.btn_search);
+        inputText=findViewById(R.id.et_input_text_admin);
+        searchBtn=findViewById(R.id.btn_search_admin);
         searchList=findViewById(R.id.list_search);
 
-        searchList.setLayoutManager(new LinearLayoutManager(SearchProductsActivity.this));
-
-
-        // if category is not defined
-       if(categoryName.equals("")) {
-           searchBtn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   searchInput = inputText.getText().toString().toUpperCase();
-                   startSearching();
-               }
-           });
-       }else {
-           startSearching();
-       }
-
+        searchList.setLayoutManager(new LinearLayoutManager(AdminDisplayAllProductsActivity.this));
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInput = inputText.getText().toString().toUpperCase();
+                startSearching();
+            }
+        });
     }
 
-  public void startSearching()
-  {
+    public void startSearching()
+    {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child(Util.productsDbName);
-      FirebaseRecyclerOptions<Products> options;
-        if(categoryName.equals("")) {
+        FirebaseRecyclerOptions<Products> options;
         /*
         retrieve data of products by input word in search bar
          */
-         options = new FirebaseRecyclerOptions.Builder<Products>()
-                 .setQuery(databaseRef.orderByChild(Util.productName)
-                         .startAt(searchInput), Products.class)
-                            .build();
-        }else
-            {
-            /*
-        retrieve data of all products in particular category
-         */
-
-                options = new FirebaseRecyclerOptions.Builder<Products>()
-                        .setQuery(databaseRef.orderByChild(Util.productCategory)
-                                .startAt(categoryName), Products.class)
-                        .build();
-        }
+            options = new FirebaseRecyclerOptions.Builder<Products>()
+                    .setQuery(databaseRef.orderByChild(Util.productName)
+                            .startAt(searchInput), Products.class).build();
 
 
         /*
@@ -110,20 +77,17 @@ public class SearchProductsActivity extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent =new Intent(SearchProductsActivity.this,ProductDetailsActivity.class);
+                                Intent intent =new Intent(AdminDisplayAllProductsActivity.this,AdminManageProductsActivity.class);
                                 intent.putExtra(Util.productId ,model.getId());
                                 startActivity(intent);
                             }
-                        });
-
-                    }
+                        }); }
 
                     @NonNull
                     @Override
                     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).
                                 inflate(R.layout.product_items_layout, parent, false);
-
                         return new ProductViewHolder(view);
                     }
                 };

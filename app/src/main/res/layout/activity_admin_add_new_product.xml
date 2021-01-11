@@ -1,22 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SellerAddNewProductActivity"
-    android:padding="5dp"
+    tools:context=".AdminAddNewProductActivity"
     android:background="@color/white"
     >
+    <LinearLayout
+        android:id="@+id/tv_add_new"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:background="@color/colorAccent"
+        android:layout_height="43dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/manager"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+          />
+
+    </LinearLayout>
 
     <ImageView
-
+        android:background="@drawable/background"
         android:id="@+id/select_product_image"
         android:layout_width="350dp"
         android:layout_height="350dp"
+        android:layout_below="@+id/tv_add_new"
         android:layout_centerHorizontal="true"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         android:src="@drawable/add_new_photo"
-        />
+        android:contentDescription="@string/todo" />
 
     <EditText
         android:id="@+id/product_name"
@@ -30,7 +56,7 @@
         android:padding="20dp"
         android:hint="@string/product_name"
         android:background="@drawable/inputs_design"
-        />
+        android:autofillHints="" />
     <EditText
         android:id="@+id/product_description"
         android:layout_width="match_parent"
@@ -56,7 +82,7 @@
         android:padding="20dp"
         android:hint="@string/product_price"
         android:background="@drawable/inputs_design"
-        />
+        android:autofillHints="" />
     <Button
         android:id="@+id/btn_add_product"
         android:layout_width="match_parent"
@@ -69,6 +95,5 @@
         android:textColor="@color/white"
 
         />
-
-
 </RelativeLayout>
+</ScrollView>

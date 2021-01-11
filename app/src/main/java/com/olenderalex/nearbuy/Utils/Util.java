@@ -1,19 +1,25 @@
 package com.olenderalex.nearbuy.Utils;
 
+import com.olenderalex.nearbuy.Model.Admin;
 import com.olenderalex.nearbuy.Model.Users;
 
 public class Util {
     public static Users currentOnlineUser;
+    public static Admin currentOnlineAdmin;
     public static  String currentUserDbName="";
 
 
+    public static final String isAdmin="Admin";
+    public static final String adminLoginKey="PhoneKey";
+    public static final String adminPasswordKey="PasswordKey";
     public static final String userPhoneKey="userPhoneKey";
     public static final String userPasswordKey="userPasswordKey";
-    public static final String userId="id";
 
 
-    public static final String adminPhoneKey="adminPhoneKey";
-    public static final String adminPasswordKey="adminPasswordKey";
+
+    public static final String adminPassword="password";
+    public static final String adminName="name";
+    public static final String adminLogin="login";
 
     public static final String usersDbName="Users";
     public static final String adminDbName="Admins";
@@ -24,22 +30,13 @@ public class Util {
 
     public static final String cartListStDbName="Cart list";
 
-
+    public static final String userId="id";
     public static final String userName="name";
     public static final String userPassword="password";
     public static final String userPhone="phone";
     public static final String userImage="image";
     public static final String userAddress="address";
     public static final String userCity="city";
-
-
-
-    public static final String adminName="name";
-    public static final String sellerPassword="password";
-    public static final String sellerPhone="phone";
-    public static final String sellerImage="image";
-    public static final String sellerCity="city";
-    public static final String sellerAddress="address";
 
 
 

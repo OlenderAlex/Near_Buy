@@ -69,7 +69,6 @@
     <string name="update1">UPDATE</string>
     <string name="address">Address</string>
     <string name="save">SAVE</string>
-    <string name="todo">TODO</string>
     <string name="add_to_cart">add to cart</string>
     <string name="next">NEXT</string>
     <string name="total_price">TOTAL PRICE</string>
@@ -104,5 +103,26 @@
     <string name="find_your_product">Find your product</string>
     <string name="choose_the_category_of_product_you_want_to_add">Choose the category of product you want to add</string>
     <string name="choose_a_category_to_find">CHOOSE A CATEGORY TO FIND</string>
+    <string name="welcome">Welcome</string>
+    <string name="get_code">get code</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="enter_your_phone_number_to_get_code_for_phone_number_varification">Enter_your_phone_number to get code for phone number varification</string>
+    <string name="nomer">###</string>
+    <string name="verify_phone">verify phone</string>
+    <string name="phone_number_or_login">Phone number or Login</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="manage_store">Manage store</string>
+    <string name="manager">MANAGER</string>
+    <string name="maintain_products">maintain products</string>
+    <string name="edit_products">Edit products</string>
+    <string name="todo">TODO</string>
+    <string name="new_orders1">New orders</string>
+    <string name="add_new_product1">Add new product</string>
+    <string name="manage_products">Manage products</string>
+    <string name="apply_changes">Apply changes</string>
+    <string name="edit">Edit</string>
+    <string name="show_details">SHOW DETAILS</string>
+    <string name="delete">Delete</string>
 
 </resources>

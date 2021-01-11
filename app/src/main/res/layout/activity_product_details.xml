@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,43 +25,33 @@
         android:id="@+id/product_name_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_below="@+id/product_image_details"
         android:text="@string/product_name"
         android:textSize="20sp"
-        android:gravity="center"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:textStyle="bold"
         />
-    <TextView
-        android:id="@+id/product_description_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/product_name_details"
-        android:text="@string/product_description"
-        android:textSize="20sp"
 
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:layout_marginTop="7dp"
-        android:scrollbars="vertical"
-        />
+
+
     <LinearLayout
         android:id="@+id/lin_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/product_description_details"
+        android:layout_below="@+id/product_name_details"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_marginTop="30dp"
+      >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
             android:text="@string/price"
+            android:layout_marginStart="20dp"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_weight="1.5"
+            android:layout_gravity="center_vertical"
             />
     <TextView
         android:id="@+id/product_price_details"
@@ -64,11 +60,10 @@
         android:text="@string/product_price"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:gravity="center"
         android:textStyle="bold"
-        android:layout_weight="0"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
+        android:layout_gravity="center_vertical"
         />
 
     <TextView
@@ -77,40 +72,58 @@
         android:text="@string/nis1"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_weight="0"
-        android:textAlignment="textStart"
+        android:layout_gravity="center_vertical"
         />
-
-
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/number_of_products_button_details"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            app:textColor="@color/black"
+            android:layout_marginStart="100dp"
+            app:textSize="10sp"
+            app:finalNumber="10"
+            app:initialNumber="1"
+            android:background="@drawable/background"
+            app:backgroundDrawable="@drawable/background"
+            >
+        </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
     </LinearLayout>
 
+    <View
+        android:layout_above="@+id/product_description_details"
+        style="@style/Divider.Horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"/>
 
-    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-        android:id="@+id/number_of_products_button_details"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        app:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        app:textSize="15sp"
-        android:layout_below="@id/lin_layout"
-        app:finalNumber="10"
-        app:initialNumber="1"
-        app:backgroundDrawable="@drawable/button_blue"
+    <TextView
+        android:id="@+id/product_description_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_description"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/lin_layout"
+        android:textColor="@color/black"
+        android:layout_marginStart="20dp"
+        android:scrollbars="vertical"
+        />
 
-        >
-
-    </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
-
+    <View
+        android:id="@+id/div_1"
+        android:layout_below="@+id/product_description_details"
+        style="@style/Divider.Horizontal"
+        android:layout_margin="18dp" />
     <Button
         android:id="@+id/add_to_cart_btn_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/div_1"
         android:text="@string/add_to_cart"
         android:textColor="@color/white"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:layout_margin="10dp"/>
 </RelativeLayout>
+</ScrollView>

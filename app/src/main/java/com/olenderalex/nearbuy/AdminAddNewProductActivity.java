@@ -4,7 +4,6 @@ package com.olenderalex.nearbuy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import io.paperdb.Paper;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,15 +28,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.olenderalex.nearbuy.Utils.Util;
 
-import java.net.URI;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Random;
 
-public class SellerAddNewProductActivity extends AppCompatActivity {
+public class AdminAddNewProductActivity extends AppCompatActivity {
 
     private String categoryName,description,price,productName;
     private Button addNewProductBtn;
@@ -58,7 +54,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seller_add_new_product);
+        setContentView(R.layout.activity_admin_add_new_product);
 
         /*
         receive name of chosen category
@@ -66,7 +62,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
 
 
         categoryName= getIntent().getExtras().get(Util.productCategory).toString();
-        Toast.makeText(SellerAddNewProductActivity.this,categoryName,Toast.LENGTH_LONG).show();
+        Toast.makeText(AdminAddNewProductActivity.this,categoryName,Toast.LENGTH_LONG).show();
 
 
         /* getting Reference to "Products" database table*/
@@ -86,16 +82,12 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
         addProductImageIv=findViewById(R.id.select_product_image);
 
         /* Choosing new product image*/
-
-
         addProductImageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGallery();
             }
         });
-
-
 
         /* Adding new product image
          */
@@ -191,7 +183,7 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e)
             {
                 String message = e.toString();
-                Toast.makeText(SellerAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                 loadingBar.dismiss();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -246,17 +238,17 @@ public class SellerAddNewProductActivity extends AppCompatActivity {
                     {
                         if (task.isSuccessful())
                         {
-                            Intent intent = new Intent(SellerAddNewProductActivity.this, SellerCategoryActivity.class);
+                            Intent intent = new Intent(AdminAddNewProductActivity.this, AdminChooseByCategoryActivity.class);
                             startActivity(intent);
 
                             loadingBar.dismiss();
-                            Toast.makeText(SellerAddNewProductActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminAddNewProductActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             loadingBar.dismiss();
                             String message = Objects.requireNonNull(task.getException()).toString();
-                            Toast.makeText(SellerAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

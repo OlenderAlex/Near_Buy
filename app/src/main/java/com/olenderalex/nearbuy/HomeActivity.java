@@ -42,12 +42,15 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+
+    private TextView userName;
+    private ImageView profileIv;
+
+    private String userType ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
         this.configureToolBar();
         this.configureDrawerLayout();
         this.configureNavigationView();
@@ -74,12 +77,12 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         });
 
         View headerView = navigationView.getHeaderView(0);
-        TextView userName = headerView.findViewById(R.id.user_name_tv);
-        ImageView profileIv = headerView.findViewById(R.id.profile_image);
+        userName = headerView.findViewById(R.id.user_name_tv);
+        profileIv = headerView.findViewById(R.id.profile_image);
 
-        userName.setText(Util.currentOnlineUser.getName());
-        Picasso.get().load(Util.currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
 
+            userName.setText(Util.currentOnlineUser.getName());
+            Picasso.get().load(Util.currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
     }
 
 
@@ -88,15 +91,11 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     protected void onStart() {
         super.onStart();
-
         /*
         retrieve all products data from realtime database
          */
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>().
                 setQuery(productsRef, Products.class).build();
-
-
-
         /*
         display the product data in recycler view on HomeActivity
          */
@@ -109,33 +108,29 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                         holder.productPriceTV.setText("Price : " + model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.productImage);
 
-
                         // Go to product detail page when clicked
+
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent =new Intent(HomeActivity.this,ProductDetailsActivity.class);
-                                intent.putExtra(Util.productId ,model.getId());
-                                startActivity(intent);
-                            }
+                                    Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra(Util.productId, model.getId());
+                                    startActivity(intent);
+                                }
                         });
                     }
-
                     @NonNull
                     @Override
                     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
                         View view = LayoutInflater.from(parent.getContext()).
                                 inflate(R.layout.product_items_layout, parent, false);
-
                         return new ProductViewHolder(view);
                     }
                 };
-
-
         recyclerMenu.setAdapter(adapter);
         adapter.startListening();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,8 +138,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -152,21 +145,16 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                 Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
                 startActivity(intent);
                 return true;
-
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
                 return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

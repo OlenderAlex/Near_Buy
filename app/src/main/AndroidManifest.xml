@@ -11,10 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".SearchByCategoryActivity"></activity>
+        <activity android:name=".AdminDisplayAllProductsActivity"></activity>
+        <activity android:name=".AdminManageProductsActivity" />
+        <activity android:name=".AdminHomeActivity" />
+        <activity android:name=".AdminRegistrationActivity" />
+        <activity android:name=".PhoneVerificationActivity" />
+        <activity android:name=".SearchByCategoryActivity" />
         <activity android:name=".SearchProductsActivity" />
         <activity android:name=".SellerDisplayConfirmedOrderByUser" />
-        <activity android:name=".SellerNewOrdersActivity" />
+        <activity android:name=".AdminNewOrdersActivity" />
         <activity android:name=".UserOrdersActivity" />
         <activity android:name=".ConfirmOrderActivity" />
         <activity android:name=".CartActivity" />
@@ -24,9 +29,9 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SellerCategoryActivity" />
-        <activity android:name=".SellerAddNewProductActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".AdminChooseByCategoryActivity" />
+        <activity android:name=".AdminAddNewProductActivity" />
+        <activity android:name=".UserRegistrationActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -39,8 +44,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

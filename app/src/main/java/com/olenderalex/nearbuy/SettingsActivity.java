@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,8 +50,9 @@ public class SettingsActivity extends AppCompatActivity {
     private Uri imageUri;
     private String myUrl ="";
     private StorageReference storageImageReference;
+    private DatabaseReference usersRef;
 
-    private String parentDbName;
+    private String parentDbName,userPhone;
     private boolean clicked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +61,16 @@ public class SettingsActivity extends AppCompatActivity {
 
         Paper.init(this);
 
-        storageImageReference= FirebaseStorage.getInstance().getReference().child(Util.profileImagesStorageName);
-        parentDbName = Paper.book().read(Util.currentUserDbName);
+        //Recieve users personal information from Paper inner DB
 
-        Log.i("dbname",parentDbName);
+        parentDbName = Paper.book().read(Util.currentUserDbName);
+        userPhone=Paper.book().read(Util.userPhoneKey);
+
+        storageImageReference= FirebaseStorage.getInstance().getReference()
+                .child(Util.profileImagesStorageName);
+        usersRef= FirebaseDatabase.getInstance().getReference()
+                .child(parentDbName)
+                .child(userPhone);
 
         profileImage=findViewById(R.id.setting_profile_image);
         nameEt=findViewById(R.id.settings_name);
@@ -73,24 +81,20 @@ public class SettingsActivity extends AppCompatActivity {
         closeTextBtn=findViewById(R.id.settings_close);
         saveBtn=findViewById(R.id.settings_save);
 
-        userInfoDisplay(profileImage,nameEt, phoneEt,addressEt);
-
-
+        userInfoDisplay();
         closeTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     fillUserInfo();
+
             }
         });
-
-
         updateAccountImageTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,14 +110,11 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE&&resultCode==RESULT_OK&&
                 data!=null){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri=result.getUri();
-
             profileImage.setImageURI(imageUri);
-
         }
         else{
             Toast.makeText(this,"Picture is not added",Toast.LENGTH_SHORT).show();
@@ -127,11 +128,9 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     private void fillUserInfo() {
-        String phone,name,password;
-
-        phone=phoneEt.getText().toString().trim();
-        name=nameEt.getText().toString().trim();
-        password=passwordEt.getText().toString().trim();
+        String phone=phoneEt.getText().toString().trim();
+        String name=nameEt.getText().toString().trim();
+        String  password=passwordEt.getText().toString().trim();
         if(TextUtils.isEmpty(phone) ){
             Toast.makeText(SettingsActivity.this, "Enter your phone number", Toast.LENGTH_SHORT).show();
         }
@@ -145,7 +144,6 @@ public class SettingsActivity extends AppCompatActivity {
             uploadImage();
         }else
         updateOnlyUserInfo();
-
     }
 
 
@@ -164,10 +162,9 @@ public class SettingsActivity extends AppCompatActivity {
         userMap.put(Util.userAddress, addressEt.getText().toString());
 
         ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
-
+        Toast.makeText(this,"Your data will update soon",Toast.LENGTH_LONG).show();
         startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
         finish();
-
     }
 
 
@@ -182,10 +179,8 @@ public class SettingsActivity extends AppCompatActivity {
         progressDialog.setMessage("Account is updating");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
         if (imageUri != null) {
             final StorageReference fileRef = storageImageReference.child(Util.currentOnlineUser.getPhone() + ".jpg");
-
             uploadTask = fileRef.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -217,8 +212,6 @@ public class SettingsActivity extends AppCompatActivity {
                                 userMap.put(Util.userImage, myUrl);
 
                                 ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
-
-
                                 progressDialog.dismiss();
 
                                 startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
@@ -243,16 +236,11 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-    // Displaying current online user information
+    // Displaying updated online user information
 
-    private void userInfoDisplay(final CircleImageView profileImage, final EditText nameEt,
-                                 final EditText phoneEt, final EditText addressEt) {
+    private void userInfoDisplay() {
 
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
-                .child(Util.currentUserDbName).child(Util.currentOnlineUser.getPhone());
-
-        userRef.addValueEventListener(new ValueEventListener() {
+        usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
@@ -264,11 +252,11 @@ public class SettingsActivity extends AppCompatActivity {
                             String phone= Objects.requireNonNull(snapshot.child(Util.userPhone).getValue()).toString();
 
                             Picasso.get().load(image).into(profileImage);
+
                             nameEt.setText(name);
                             phoneEt.setText(phone);
                             passwordEt.setText(password);
                             addressEt.setText(address);
-
                         }
                     }
             }
