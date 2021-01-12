@@ -10,13 +10,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminNewOrdersActivity"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/background">
     <RelativeLayout
         android:id="@+id/rel_layout_seller_new_orders"
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorAccent">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_new_orders"
@@ -26,11 +26,14 @@
             android:layout_marginTop="5dp"
             android:text="@string/new_orders"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="18sp" />
 
     </RelativeLayout>
+    <View
+        style="@style/Divider.Horizontal"
+        android:layout_marginTop="40dp" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_new_orders"
         android:layout_width="match_parent"

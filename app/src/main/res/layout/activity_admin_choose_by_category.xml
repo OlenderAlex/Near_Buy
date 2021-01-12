@@ -17,7 +17,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:weightSum="2"
-    android:background="@color/colorAccent"
+    android:background="@color/white"
     android:layout_height="43dp">
 
     <TextView
@@ -25,13 +25,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:text="@string/my_store"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginStart="50dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"/>
 
     <Button
         android:id="@+id/logout_btn_seller_category"
@@ -40,10 +41,12 @@
         android:layout_marginEnd="5dp"
         android:layout_weight="1"
         android:background="@drawable/logout_img"
-        android:textColor="@color/black"
-
+        android:textColor="@color/colorPrimaryDark"
         />
 </LinearLayout>
+    <View
+        style="@style/Divider.Horizontal"
+        android:layout_marginTop="0dp" />
     <TextView
         android:id="@+id/slogan_category_tv"
         android:layout_width="match_parent"
@@ -85,7 +88,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/computers"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/category_appliances"
@@ -98,7 +102,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/appliances"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/category_phones"
@@ -111,7 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/smartphones"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -127,15 +133,16 @@
                 android:id="@+id/category_clothes"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/shirt_color"
+                android:src="@drawable/wristwatch"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/clothes"
-                android:layout_marginTop="5dp"/>
+                android:text="@string/watches"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/category_toys"
@@ -149,7 +156,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/toys"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                />
 
             <ImageView
                 android:id="@+id/category_sport"
@@ -161,8 +170,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sport_equipment"
-                android:layout_marginTop="5dp"/>
+                android:text="@string/sport"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -180,12 +190,14 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 android:src="@drawable/groceries"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/category_fruits"
@@ -198,7 +210,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fresh_marker"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
             <ImageView
                 android:id="@+id/category_pets"
@@ -211,7 +224,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/for_pets"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"/>
 
         </LinearLayout>
 

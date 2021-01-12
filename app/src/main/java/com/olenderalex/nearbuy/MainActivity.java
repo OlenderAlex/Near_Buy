@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginBtnUser;
-    private TextView loginAdminTv;
+
     private TextView adminSighUpTv;
     private Button userSignUpBtn;
     private String parentDbName;
@@ -42,27 +42,16 @@ public class MainActivity extends AppCompatActivity {
         loginBtnUser = findViewById(R.id.btn_login_user);
         adminSighUpTv = findViewById(R.id.signup_admin);
         userSignUpBtn = findViewById(R.id.btn_user_signUp);
-        loginAdminTv = findViewById(R.id.btn_login_seller);
-
-
         loadingBar = new ProgressDialog(this);
 
         loginBtnUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
-                intentLogin.putExtra("Table name", Util.usersDbName);
                 startActivity(intentLogin);
             }
         });
-        loginAdminTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
-                intentLogin.putExtra("Table name", Util.adminDbName);
-                startActivity(intentLogin);
-            }
-        });
+
         userSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

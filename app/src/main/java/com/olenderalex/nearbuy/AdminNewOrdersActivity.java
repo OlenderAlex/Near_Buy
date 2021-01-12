@@ -87,7 +87,7 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                                 AlertDialog.Builder builder =new AlertDialog.Builder(AdminNewOrdersActivity.this);
                                 final AlertDialog optionDialog = builder.create();
 
-                                builder.setTitle("Is order is delivered?");
+                                builder.setTitle("Is order delivered?");
 
                                 builder.setItems(isDelivered, new DialogInterface.OnClickListener() {
                                     @Override

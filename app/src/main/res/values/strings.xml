@@ -3,10 +3,6 @@
     <string name="back_arrow">back arrow</string>
     <string name="nearbuy">NearBuy</string>
     <string name="login_within">Login within</string>
-    <string name="facebook">facebook</string>
-    <string name="instagram">instagram</string>
-    <string name="twitter">twitter</string>
-    <string name="google">google</string>
     <string name="or">or</string>
     <string name="log_in_with_email">Log in with email</string>
     <string name="email">Email</string>
@@ -33,9 +29,10 @@
     <string name="appliances">appliances</string>
     <string name="smartphones">smartphones</string>
     <string name="toys">toys</string>
+    <string name="watches">watches</string>
     <string name="sport_equipment">sport equipment</string>
     <string name="food">food</string>
-    <string name="fresh_marker">fresh marker</string>
+    <string name="fresh_marker">fresh market</string>
     <string name="for_pets">for pets</string>
 
     <string name="login_as_regular_user">Login as a regular user</string>
@@ -106,7 +103,7 @@
     <string name="welcome">Welcome</string>
     <string name="get_code">get code</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
-    <string name="enter_your_phone_number_to_get_code_for_phone_number_varification">Enter_your_phone_number to get code for phone number varification</string>
+    <string name="enter_your_phone_number_to_get_code_for_phone_number_varification">Enter your phone number to get code for phone number varification</string>
     <string name="nomer">###</string>
     <string name="verify_phone">verify phone</string>
     <string name="phone_number_or_login">Phone number or Login</string>
@@ -124,5 +121,15 @@
     <string name="edit">Edit</string>
     <string name="show_details">SHOW DETAILS</string>
     <string name="delete">Delete</string>
+    <string name="welcome_to_our_shop_create_new_account_anf_enjoy_our_app">Welcome to NearBuy shop .Create new account and enjoy our app</string>
+    <string name="admnin">Admnin?</string>
+    <string name="admin">Admin?</string>
+    <string name="shop_as_a_costumer">Shop as a costumer</string>
+    <string name="checkout">Checkout</string>
+    <string name="sport">sport</string>
+    <string name="update_image">UPDATE IMAGE</string>
+    <string name="favorite1">Favorite</string>
+    <string name="find_by_category">Find by Category</string>
+    <string name="favorite_products">FAVORITE PRODUCTS</string>
 
 </resources>

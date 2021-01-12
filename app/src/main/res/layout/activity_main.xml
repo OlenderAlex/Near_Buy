@@ -12,80 +12,71 @@
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:src="@drawable/app_logo" />
+        android:src="@drawable/logo_icon_clean"
+        android:contentDescription="@string/todo" />
 
 
-    <ImageView
-        android:id="@+id/app_cart"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/cart_and_location" />
-
-    <Button
-        android:id="@+id/btn_login_user"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/app_logo_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/blue"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-160dp"
+        android:fontFamily="@font/advent_pro_medium"
+        android:rotationX="-8"
+        android:rotationY="-4"
+        android:text="@string/nearbuy"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textSize="100sp" />
+
+
+
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="30dp"
-        android:text="@string/create_your_own_online_store_or_find_any_product_you_want"
+        android:text="@string/welcome_to_our_shop_create_new_account_anf_enjoy_our_app"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="#040000"
         android:textSize="18sp"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-
-
-        />
-
-
-
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_user_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_accent"
         android:text="@string/join_now"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/buttons"
-        android:fontFamily="sans-serif-black"
-        />
-    <TextView
-        android:id="@+id/btn_login_seller"
-        android:layout_width="wrap_content"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn_login_user"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:background="@color/white"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/login_as_admin"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        android:layout_marginStart="250dp"
-        />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorAccent"
+        android:text="@string/already_have_an_account"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/signup_admin"
         android:layout_width="wrap_content"

@@ -17,15 +17,17 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.olenderalex.nearbuy.Model.Cart;
+import com.olenderalex.nearbuy.Model.Products;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.CartViewHolder;
+import com.squareup.picasso.Picasso;
 
 public class SellerDisplayConfirmedOrderByUser extends AppCompatActivity {
 
     private RecyclerView productsList;
     RecyclerView.LayoutManager layoutManager;
     private DatabaseReference cartListRef;
-
+    private String imageUri="";
     private String userId="";
 
     @Override
@@ -41,10 +43,8 @@ public class SellerDisplayConfirmedOrderByUser extends AppCompatActivity {
         productsList.setLayoutManager(layoutManager);
 
         cartListRef= FirebaseDatabase.getInstance().getReference()
-                .child(Util.cartListStDbName)
-                .child(Util.usersView)
-                .child(userId)
-                .child(Util.orders);
+                .child(Util.confirmedOrders)
+                .child(userId);
 
     }
 
@@ -60,9 +60,11 @@ public class SellerDisplayConfirmedOrderByUser extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull Cart model) {
 
+
                 holder.productQuantityTxt.setText("Amount: "+model.getQuantity());
                 holder.productNameTxt.setText(model.getProductName());
                 holder.productPriceTxt.setText("Price: "+model.getPrice());
+                
             }
 
             @NonNull

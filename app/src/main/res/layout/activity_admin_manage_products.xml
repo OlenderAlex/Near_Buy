@@ -7,10 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminManageProductsActivity"
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    app:cardElevation="10dp">
+   android:layout_margin="2dp"
+    app:cardElevation="5dp">
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -19,31 +17,36 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <Button
             android:id="@+id/edit_apply_changes_btn"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/scrolView1"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
-            android:background="@drawable/button_blue"
-            android:padding="12dp"
+            android:layout_alignEnd="@id/scrolView1"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+
+            android:background="@drawable/button_grey"
             android:text="@string/edit"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+
         <Button
             android:id="@+id/delete_product_btn11"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/edit_apply_changes_btn"
-            android:layout_marginTop="53dp"
+            android:layout_toStartOf="@id/edit_apply_changes_btn"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/scrolView1"
             android:background="@drawable/ic_baseline_delete_24"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
         <ScrollView
             android:id="@+id/scrolView1"
@@ -77,7 +80,7 @@
             android:padding="12dp"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold" />
 

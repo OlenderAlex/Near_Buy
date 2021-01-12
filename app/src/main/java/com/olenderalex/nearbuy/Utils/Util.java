@@ -24,6 +24,7 @@ public class Util {
     public static final String usersDbName="Users";
     public static final String adminDbName="Admins";
     public static final String productsDbName="Products";
+    public static final String favoriteProductsDbName="Favorite Products";
 
     public static final String productsImagesStorageName="Product images";
     public static final String profileImagesStorageName="Profile images";

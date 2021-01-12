@@ -113,6 +113,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         userDataMap.put(Util.userName, name);
                         userDataMap.put(Util.userAddress, "");
                         userDataMap.put(Util.userCity, "");
+                         userDataMap.put(Util.userImage, "");
 
 
                     RootRef.child(parentDbName).child(phone).updateChildren(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {

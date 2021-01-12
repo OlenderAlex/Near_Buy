@@ -10,18 +10,28 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.olenderalex.nearbuy.ViewHolder.ProductViewHolder;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Products;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -46,6 +56,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     private TextView userName;
     private ImageView profileIv;
 
+
     private String userType ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +67,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         this.configureNavigationView();
 
         productsRef = FirebaseDatabase.getInstance().getReference().child(Util.productsDbName);
-
-
         recyclerMenu = findViewById(R.id.recycler_menu);
         recyclerMenu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -102,21 +111,70 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model) {
+                    protected void onBindViewHolder(@NonNull final ProductViewHolder holder
+                            , int position, @NonNull final Products model) {
 
                         holder.productNameTV.setText(model.getProductName());
                         holder.productPriceTV.setText("Price : " + model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.productImage);
 
                         // Go to product detail page when clicked
-
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                    Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                    Intent intent = new Intent(HomeActivity.this
+                                            , ProductDetailsActivity.class);
                                     intent.putExtra(Util.productId, model.getId());
                                     startActivity(intent);
                                 }
+                        });
+
+//-------------  Checking if product already added to favorites
+//-------------  and displaying filled heart icon if added
+                        final DatabaseReference rootRef;
+                        rootRef = FirebaseDatabase.getInstance().getReference();
+                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.child(Util.favoriteProductsDbName)
+                                        .child(Util.currentOnlineUser.getPhone())
+                                        .child(model.getId())
+                                        .exists())
+                                {
+                                    holder.favoriteEmptyIv.setVisibility(View.GONE);
+                                    holder.favoriteFilledIv.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+
+                        //add to favorites by clicking on heart icon
+                        holder.favoriteEmptyIv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                addToFavoriteList(model);
+                                holder.favoriteEmptyIv.setClickable(false);
+                                holder.favoriteEmptyIv.setVisibility(View.GONE);
+
+                                holder.favoriteFilledIv.setClickable(true);
+                                holder.favoriteFilledIv.setVisibility(View.VISIBLE);
+
+                            }
+                        });
+                        //Delete from favorites by clicking on heart icon
+                        holder.favoriteFilledIv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteFromFavoriteList(model);
+                                holder.favoriteFilledIv.setClickable(false);
+                                holder.favoriteFilledIv.setVisibility(View.GONE);
+
+                                holder.favoriteEmptyIv.setVisibility(View.VISIBLE);
+                                holder.favoriteEmptyIv.setClickable(true);
+                            }
                         });
                     }
                     @NonNull
@@ -131,7 +189,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         adapter.startListening();
     }
 
-
+    //-------------------------------------------------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -142,12 +200,14 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
-                startActivity(intent);
+                Intent intentSearch =new Intent(HomeActivity.this,SearchProductsActivity.class);
+                startActivity(intentSearch);
                 return true;
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
+                Intent intentFavorites=new Intent(HomeActivity.this,FavoriteProductsActivity.class);
+                startActivity(intentFavorites);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -178,14 +238,10 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
             Intent intent =new Intent(HomeActivity.this,UserOrdersActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.nav_search) {
-            Intent intent =new Intent(HomeActivity.this,SearchProductsActivity.class);
-            Bundle data =new Bundle();
-            data.putString(Util.productCategory, "no category");
-            intent.putExtras(data);
+        if (id == R.id.nav_favorite) {
+            Intent intent =new Intent(HomeActivity.this,FavoriteProductsActivity.class);
             startActivity(intent);
         }
-
         //Log out from current  account
         if (id == R.id.nav_logout) {
             Paper.book().destroy();
@@ -194,8 +250,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
             startActivity(intent);
             finish();
         }
-
-
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -204,7 +258,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     // 1 - Configure Toolbar
     private void configureToolBar(){
         this.toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Home");
+        toolbar.setTitle("HOME");
         setSupportActionBar(toolbar);
     }
 
@@ -223,12 +277,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
-
-
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -238,6 +286,51 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
             super.onBackPressed();
         }
     }
+
+//------------------------------------------------------------------------------------------------------------------
+//-----------   Adding or deleting product to favorites
+    private void addToFavoriteList(Products model) {
+        final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(Util.favoriteProductsDbName)
+                .child(Util.currentOnlineUser.getPhone())
+                .child(model.getId());
+
+        //Storing the data
+
+        final HashMap<String, Object> cartMap = new HashMap<>();
+        cartMap.put(Util.productId, model.getId());
+        cartMap.put(Util.productName, model.getProductName());
+        cartMap.put(Util.productPrice, model.getPrice());
+        cartMap.put(Util.productImage, model.getImage());
+
+        favoritesListRef.updateChildren(cartMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(HomeActivity.this,"Added to favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    }});
+    }
+
+
+    //Deleting product from favorites by clicking on filled black heart
+    private void deleteFromFavoriteList(Products model) {
+        final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(Util.favoriteProductsDbName)
+                .child(Util.currentOnlineUser.getPhone());
+
+        favoritesListRef.child(model.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(HomeActivity.this, "Product deleted successfully"
+                        , Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }
 

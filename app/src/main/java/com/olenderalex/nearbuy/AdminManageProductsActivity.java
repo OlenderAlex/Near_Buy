@@ -67,7 +67,8 @@ public class AdminManageProductsActivity extends AppCompatActivity {
                        "Cancel"
                 };
                AlertDialog.Builder builder = new AlertDialog.Builder(AdminManageProductsActivity.this);
-               builder.setTitle("You sure you want to delete this product? :");
+               final AlertDialog optionDialog = builder.create();
+               builder.setTitle("Delete this product? :");
 
                builder.setItems(editProduct, new DialogInterface.OnClickListener() {
                   @Override
@@ -76,7 +77,7 @@ public class AdminManageProductsActivity extends AppCompatActivity {
                          deleteProduct();
                        }
                         if(which==1){
-                            finish();
+                            optionDialog.dismiss();
                        }
                    }
                });builder.show();

@@ -16,7 +16,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
     public TextView productNameTV,productDescriptionTV,productPriceTV;
     public ImageView productImage;
     public ItemClickListener listener;
-
+    public ImageView favoriteEmptyIv,favoriteFilledIv;
 
 
     public ProductViewHolder(@NonNull View itemView) {
@@ -25,6 +25,8 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
         productImage=itemView.findViewById(R.id.product_image_cardView);
         productNameTV=itemView.findViewById(R.id.product_name_cardView);
         productPriceTV=itemView.findViewById(R.id.product_price_cardView);
+        favoriteEmptyIv=itemView.findViewById(R.id.favorite_empty_cardView);
+        favoriteFilledIv=itemView.findViewById(R.id.favorite_filled_cardView);
     }
 
     public void setItemClickListener (ItemClickListener listener){

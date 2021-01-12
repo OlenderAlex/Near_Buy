@@ -12,15 +12,12 @@
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/app_logo"
+        android:src="@drawable/logo_icon_nearbuy"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/todo" />
-
-
-
 
     <TextView
 
@@ -28,44 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="@string/login_within"
+        android:text="@string/login"
         android:textSize="18sp" />
-
-
-    <!--Social media logos-->
-    <LinearLayout
-        android:paddingTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <ImageView
-            android:id="@+id/ivFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/facebook"
-            android:src="@drawable/facebook" />
-
-        <ImageView
-            android:id="@+id/ivTwitter"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/instagram"
-            android:src="@drawable/twitter" />
-
-
-        <ImageView
-            android:id="@+id/ivGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/google"
-            android:src="@drawable/google" />
-    </LinearLayout>
 
 
 
@@ -80,20 +41,14 @@
         <View
             style="@style/Divider.Horizontal"
             android:layout_gravity="center"
-            android:layout_weight="1" />
-
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/or"
-            android:textSize="18sp" />
+            android:layout_marginEnd="20dp"/>
+
+
 
 
         <View
+            android:layout_marginStart="20dp"
             style="@style/Divider.Horizontal"
             android:layout_gravity="center"
             android:layout_weight="1" />
@@ -109,32 +64,49 @@
         android:layout_height="wrap_content"
         android:hint= "@string/phone_number_or_login"
         android:inputType="text"
-        android:paddingTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:background="@drawable/inputs_design"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
         android:importantForAutofill="no" tools:targetApi="o"/>
 
-    <!--PAssword entering-->
+    <View
+        style="@style/Divider.Horizontal"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="3dp"
+        />
 
     <EditText
         android:id="@+id/pass_et_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/inputs_design"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:textSize="20sp"
         tools:targetApi="o" />
-
+    <View
+        style="@style/Divider.Horizontal"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="3dp"
+        />
     <CheckBox
         android:id="@+id/login_remember_me_chkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember_me"
-        android:layout_marginStart="20dp"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         />
 
@@ -145,10 +117,22 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/buttons"
+        android:background="@drawable/button_accent"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="18sp" />
+
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:gravity="center"
+        android:text="@string/forgot_password"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"/>
 
 
 
@@ -156,18 +140,31 @@
 
     <View
         style="@style/Divider.Horizontal"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_margin="25dp">
+        <TextView
+            android:id="@+id/tv_login_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/shop_as_a_costumer"
+            android:textSize="21sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone"/>
 
     <TextView
-
+        android:id="@+id/tv_login_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:text="@string/forgot_password"
-        android:textSize="18sp"
-        android:textColor="@color/black"/>
-
-
+        android:gravity="end"
+        android:text="@string/admin"
+        android:textSize="21sp"
+        android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
 </LinearLayout>
 

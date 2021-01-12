@@ -17,7 +17,7 @@ android:background="@color/white"
 <LinearLayout
     android:layout_width="match_parent"
     android:weightSum="2"
-    android:background="@color/colorAccent"
+    android:background="@color/white"
     android:layout_height="43dp">
 
     <TextView
@@ -28,12 +28,14 @@ android:background="@color/white"
         android:gravity="center"
         android:text="@string/choose_a_category_to_find"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"
         android:layout_marginTop="10dp"/>
 </LinearLayout>
-
+    <View
+        style="@style/Divider.Horizontal"
+       />
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -106,14 +108,14 @@ android:background="@color/white"
             android:id="@+id/search_by_category_clothes"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/shirt_color"
+            android:src="@drawable/wristwatch"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/clothes"
+            android:text="@string/watches"
             android:layout_marginTop="5dp"/>
 
         <ImageView

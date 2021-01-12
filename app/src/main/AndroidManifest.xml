@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".AdminDisplayAllProductsActivity"></activity>
+        <activity android:name=".FavoriteProductsActivity"></activity>
+        <activity android:name=".AdminDisplayAllProductsActivity" />
         <activity android:name=".AdminManageProductsActivity" />
         <activity android:name=".AdminHomeActivity" />
         <activity android:name=".AdminRegistrationActivity" />
@@ -43,9 +44,13 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-    </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

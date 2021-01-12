@@ -25,18 +25,19 @@
             android:layout_marginTop="10dp"
             android:text="@string/manager"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="18sp"
           />
-
     </LinearLayout>
-
+        <View
+            style="@style/Divider.Horizontal"
+            android:layout_marginTop="40dp" />
     <ImageView
         android:background="@drawable/background"
         android:id="@+id/select_product_image"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/tv_add_new"
         android:layout_centerHorizontal="true"
         android:cropToPadding="false"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/select_product_image"
         android:inputType="textMultiLine"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="20dp"
@@ -91,7 +92,7 @@
         android:layout_margin="20dp"
         android:textSize="20sp"
         android:text="@string/add_new_product"
-        android:background="@drawable/buttons"
+        android:background="@drawable/button_grey"
         android:textColor="@color/white"
 
         />

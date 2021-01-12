@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_home"
-    android:background="@color/lightGrey"
+
     >
 
 
@@ -16,6 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:background="@color/lightGrey"
+        android:background="@color/white"
         />
 </RelativeLayout>

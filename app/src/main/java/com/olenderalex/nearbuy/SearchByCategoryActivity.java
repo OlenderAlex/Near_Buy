@@ -67,7 +67,7 @@ public class SearchByCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SearchByCategoryActivity.this, SearchProductsActivity.class);
-                intent.putExtra(Util.productCategory, "Clothes");
+                intent.putExtra(Util.productCategory, "Watches");
                 startActivity(intent);
             }
         });

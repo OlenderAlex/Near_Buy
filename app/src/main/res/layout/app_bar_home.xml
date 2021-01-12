@@ -10,16 +10,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Light"
         >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorAccent"
+            android:background="@color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="@color/black"
           />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,8 +31,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputLogin, inputPassword;
     private Button loginButton;
     private ProgressDialog loadingBar;
-    private String parentDbName;
+    private String parentDbName=Util.usersDbName;
     private CheckBox chkBoxRememberMe;
+    private TextView loginAdminTv;
+    private TextView loginUserTv;
 
 
     @Override
@@ -43,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         inputLogin = findViewById(R.id.phone_number_login);
         inputPassword = findViewById(R.id.pass_et_login);
         loadingBar = new ProgressDialog(this);
+        loginAdminTv = findViewById(R.id.tv_login_admin);
+        loginUserTv = findViewById(R.id.tv_login_user);
 
 
         chkBoxRememberMe = findViewById(R.id.login_remember_me_chkbox);
@@ -54,8 +59,24 @@ public class LoginActivity extends AppCompatActivity {
                 LoginUser();
             }
         });
+        loginAdminTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentDbName = Util.adminDbName;
+                loginAdminTv.setVisibility(View.GONE);
+                loginUserTv.setVisibility(View.VISIBLE);
+            }
+        });
+        loginUserTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parentDbName = Util.usersDbName;
+                loginUserTv.setVisibility(View.GONE);
+                loginAdminTv.setVisibility(View.VISIBLE);
+            }
+        });
 
-        parentDbName = getIntent().getExtras().get("Table name").toString();
+
 
     }
 
@@ -134,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
-
+                    loadingBar.dismiss();
                     //Log in for admins
                     if (parentDbName.equals(Util.adminDbName)) {
                         Admin adminData = snapshot.child(parentDbName).child(login).getValue(Admin.class);
