@@ -6,65 +6,61 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.olenderalex.nearbuy.Model.Cart;
-import com.olenderalex.nearbuy.Model.Products;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.CartViewHolder;
 import com.squareup.picasso.Picasso;
 
-public class SellerDisplayConfirmedOrderByUser extends AppCompatActivity {
+public class AdminDisplayOrderDetails extends AppCompatActivity {
 
     private RecyclerView productsList;
     RecyclerView.LayoutManager layoutManager;
-    private DatabaseReference cartListRef;
+    private DatabaseReference ordersRef;
     private String imageUri="";
-    private String userId="";
+    private String orderNumber="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seller_display_confirmed_order_by_user);
+        setContentView(R.layout.activity_admin_display_order_details);
 
-        userId=getIntent().getStringExtra(Util.userId);
+        orderNumber=getIntent().getStringExtra(Util.orderNumber);
 
-        productsList=findViewById(R.id.list_seller_display_order);
+        productsList=findViewById(R.id.admin_display_order_details);
         productsList.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
         productsList.setLayoutManager(layoutManager);
 
-        cartListRef= FirebaseDatabase.getInstance().getReference()
-                .child(Util.confirmedOrders)
-                .child(userId);
+        ordersRef = FirebaseDatabase.getInstance().getReference()
+                .child(Util.orders)
+                .child(Util.adminView)
+                .child(orderNumber);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseRecyclerOptions<Cart> options =
                 new FirebaseRecyclerOptions.Builder<Cart>()
-                .setQuery(cartListRef,Cart.class)
+                .setQuery(ordersRef,Cart.class)
                 .build();
         FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter =new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull Cart model) {
 
-
                 holder.productQuantityTxt.setText("Amount: "+model.getQuantity());
                 holder.productNameTxt.setText(model.getProductName());
                 holder.productPriceTxt.setText("Price: "+model.getPrice());
-                
+                Picasso.get().load(model.getImage()).into(holder.productIv);
             }
 
             @NonNull

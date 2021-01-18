@@ -45,25 +45,21 @@ public class SearchProductsActivity extends AppCompatActivity {
             Toast.makeText(SearchProductsActivity.this, categoryName, Toast.LENGTH_LONG).show();
 
         }
-        Log.i("name",categoryName);
-
         inputText=findViewById(R.id.et_input_text);
         searchBtn=findViewById(R.id.btn_search);
         searchList=findViewById(R.id.list_search);
 
         searchList.setLayoutManager(new LinearLayoutManager(SearchProductsActivity.this));
 
-
-        // if category is not defined
-       if(categoryName.equals("")) {
-           searchBtn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   searchInput = inputText.getText().toString().toUpperCase();
-                   startSearching();
-               }
-           });
-       }else {
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInput = inputText.getText().toString().toUpperCase();
+                startSearching();
+            }
+        });
+        // if category is  defined
+       if(!categoryName.equals("")) {
            startSearching();
        }
 
@@ -86,7 +82,6 @@ public class SearchProductsActivity extends AppCompatActivity {
             /*
         retrieve data of all products in particular category
          */
-
                 options = new FirebaseRecyclerOptions.Builder<Products>()
                         .setQuery(databaseRef.orderByChild(Util.productCategory)
                                 .startAt(categoryName), Products.class)
@@ -104,7 +99,7 @@ public class SearchProductsActivity extends AppCompatActivity {
                         holder.productNameTV.setText(model.getProductName());
                         holder.productPriceTV.setText("Price : " + model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.productImage);
-
+                        holder.favoriteEmptyIv.setVisibility(View.GONE);
 
                         // Go to product detail page when clicked
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +112,6 @@ public class SearchProductsActivity extends AppCompatActivity {
                         });
 
                     }
-
                     @NonNull
                     @Override
                     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -129,5 +123,14 @@ public class SearchProductsActivity extends AppCompatActivity {
                 };
         searchList.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent =new Intent(SearchProductsActivity.this,HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

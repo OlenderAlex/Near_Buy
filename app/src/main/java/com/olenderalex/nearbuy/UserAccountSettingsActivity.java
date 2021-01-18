@@ -10,13 +10,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +31,11 @@ import com.google.firebase.storage.StorageTask;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageActivity;
 
 import java.util.HashMap;
 import java.util.Objects;
 
-public class SettingsActivity extends AppCompatActivity {
+public class UserAccountSettingsActivity extends AppCompatActivity {
     private CircleImageView profileImage;
     private EditText nameEt,phoneEt,addressEt,passwordEt;
     private TextView updateAccountImageTextBtn , closeTextBtn;
@@ -63,8 +59,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Recieve users personal information from Paper inner DB
 
-        parentDbName = Paper.book().read(Util.currentUserDbName);
-        userPhone=Paper.book().read(Util.userPhoneKey);
+        parentDbName = Paper.book().read(Util.currentDbName);
+        userPhone=Paper.book().read(Util.currentLoginKey);
 
         storageImageReference= FirebaseStorage.getInstance().getReference()
                 .child(Util.profileImagesStorageName);
@@ -101,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
                 clicked=true;
                 CropImage.activity(imageUri).
                         setAspectRatio(1,1)
-                        .start(SettingsActivity.this);
+                        .start(UserAccountSettingsActivity.this);
             }
         });
     }
@@ -118,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(this,"Picture is not added",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(SettingsActivity.this,SettingsActivity.class));
+            startActivity(new Intent(UserAccountSettingsActivity.this, UserAccountSettingsActivity.class));
             finish();
         }
     }
@@ -132,13 +128,13 @@ public class SettingsActivity extends AppCompatActivity {
         String name=nameEt.getText().toString().trim();
         String  password=passwordEt.getText().toString().trim();
         if(TextUtils.isEmpty(phone) ){
-            Toast.makeText(SettingsActivity.this, "Enter your phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserAccountSettingsActivity.this, "Enter your phone number", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(name)){
-            Toast.makeText(SettingsActivity.this,"Enter your name",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserAccountSettingsActivity.this,"Enter your name",Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(password)){
-            Toast.makeText(SettingsActivity.this,"Enter your password",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserAccountSettingsActivity.this,"Enter your password",Toast.LENGTH_SHORT).show();
         }
         else if(clicked){
             uploadImage();
@@ -161,9 +157,9 @@ public class SettingsActivity extends AppCompatActivity {
         userMap.put(Util.userPhone, phoneEt.getText().toString());
         userMap.put(Util.userAddress, addressEt.getText().toString());
 
-        ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
+        ref.child(MainActivity.currentOnlineUser.getPhone()).updateChildren(userMap);
         Toast.makeText(this,"Your data will update soon",Toast.LENGTH_LONG).show();
-        startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+        startActivity(new Intent(UserAccountSettingsActivity.this, HomeActivity.class));
         finish();
     }
 
@@ -180,7 +176,7 @@ public class SettingsActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         if (imageUri != null) {
-            final StorageReference fileRef = storageImageReference.child(Util.currentOnlineUser.getPhone() + ".jpg");
+            final StorageReference fileRef = storageImageReference.child(MainActivity.currentOnlineUser.getPhone() + ".jpg");
             uploadTask = fileRef.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -211,21 +207,21 @@ public class SettingsActivity extends AppCompatActivity {
                                 userMap.put(Util.userAddress, addressEt.getText().toString());
                                 userMap.put(Util.userImage, myUrl);
 
-                                ref.child(Util.currentOnlineUser.getPhone()).updateChildren(userMap);
+                                ref.child(MainActivity.currentOnlineUser.getPhone()).updateChildren(userMap);
                                 progressDialog.dismiss();
 
-                                startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
+                                startActivity(new Intent(UserAccountSettingsActivity.this, HomeActivity.class));
                                 finish();
 
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(SettingsActivity.this, "Error account is not updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserAccountSettingsActivity.this, "Error account is not updated", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         }
                     });
         } else {
-            Toast.makeText(SettingsActivity.this, "Image is not selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserAccountSettingsActivity.this, "Image is not selected", Toast.LENGTH_SHORT).show();
         }
     }
 

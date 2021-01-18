@@ -17,7 +17,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/userOrders_your_orders"
+            android:id="@+id/userOrders_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -32,7 +32,12 @@
             style="@style/Divider.Horizontal"
             android:layout_marginTop="40dp" />
     </RelativeLayout>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user_orders_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/userOrders_rel_layout"
+        />
     <TextView
         android:id="@+id/userOrders_msg"
         android:layout_width="match_parent"

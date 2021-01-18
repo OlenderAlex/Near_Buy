@@ -4,18 +4,15 @@ import com.olenderalex.nearbuy.Model.Admin;
 import com.olenderalex.nearbuy.Model.Users;
 
 public class Util {
-    public static Users currentOnlineUser;
-    public static Admin currentOnlineAdmin;
-    public static  String currentUserDbName="";
+    //public static Users currentOnlineUser;
+    //public static Admin currentOnlineAdmin;
 
+    public static final String OwnerLoginKey="BusinessOwner";
+    public static final String currentLoginKey="PhoneKey";
+    public static final String currentPasswordKey="PasswordKey";
+    public static  String currentDbName ="";
 
     public static final String isAdmin="Admin";
-    public static final String adminLoginKey="PhoneKey";
-    public static final String adminPasswordKey="PasswordKey";
-    public static final String userPhoneKey="userPhoneKey";
-    public static final String userPasswordKey="userPasswordKey";
-
-
 
     public static final String adminPassword="password";
     public static final String adminName="name";
@@ -61,7 +58,7 @@ public class Util {
     public static final String orders="Orders";
     public static final String newOrders="New Orders";
 
-
+    public static final String orderNumber="orderNumber";
 
     public static final String confirmedOrders="Confirmed Orders";
     public static final String orderState="state";

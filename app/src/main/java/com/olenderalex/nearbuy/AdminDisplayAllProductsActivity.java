@@ -79,7 +79,9 @@ public class AdminDisplayAllProductsActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent intent =new Intent(AdminDisplayAllProductsActivity.this,AdminManageProductsActivity.class);
                                 intent.putExtra(Util.productId ,model.getId());
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
+                                finish();
                             }
                         }); }
 

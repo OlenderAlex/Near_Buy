@@ -51,7 +51,7 @@ public class FavoriteProductsActivity extends AppCompatActivity {
                 .getReference().child(Util.favoriteProductsDbName);
 
         FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-                .setQuery(favoritesListRef.child(Util.currentOnlineUser.getPhone()),Cart.class)
+                .setQuery(favoritesListRef.child(MainActivity.currentOnlineUser.getPhone()),Cart.class)
                 .build();
 
 
@@ -79,14 +79,15 @@ public class FavoriteProductsActivity extends AppCompatActivity {
 
                         builder.setItems(editProduct, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(final DialogInterface dialog, int which) {
                                 if(which==0){
-                                    Intent intent =new Intent(FavoriteProductsActivity.this,ProductDetailsActivity.class);
+                                    Intent intent =new Intent(
+                                            FavoriteProductsActivity.this,ProductDetailsActivity.class);
                                     intent.putExtra(Util.productId,model.getId());
                                     startActivity(intent);
                                 }
                                 if(which==1){
-                                    favoritesListRef.child(Util.currentOnlineUser.getPhone())
+                                    favoritesListRef.child(MainActivity.currentOnlineUser.getPhone())
                                             .child(model.getId())
                                             .removeValue()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -96,9 +97,7 @@ public class FavoriteProductsActivity extends AppCompatActivity {
                                                         Toast.makeText(FavoriteProductsActivity.this
                                                                 ,"Product removed",Toast.LENGTH_LONG).show();
 
-                                                        Intent intent =new Intent(
-                                                                FavoriteProductsActivity.this,CartActivity.class);
-                                                        startActivity(intent);
+                                                       dialog.dismiss();
                                                     }
                                                 }
                                             });

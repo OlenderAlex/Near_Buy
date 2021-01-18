@@ -125,7 +125,9 @@ public class AdminChooseByCategoryActivity extends AppCompatActivity {
                 //Delete seller's password and phone number from phone memory
                 Paper.book().destroy();
                 Intent intent = new Intent(AdminChooseByCategoryActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                finish();
             }
         });
     }}

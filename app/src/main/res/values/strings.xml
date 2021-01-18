@@ -131,5 +131,8 @@
     <string name="favorite1">Favorite</string>
     <string name="find_by_category">Find by Category</string>
     <string name="favorite_products">FAVORITE PRODUCTS</string>
+    <string name="shipped_orders">Shipped orders</string>
+    <string name="admins_activity">Admins Activity</string>
+    <string name="create_new_admin_account">Create new admin account</string>
 
 </resources>

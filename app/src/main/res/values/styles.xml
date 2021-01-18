@@ -7,7 +7,7 @@
         <item name="android:itemTextAppearance">@style/menu_item_color</item>
         <item name="colorPrimary">#6A6969</item>
         <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">#33495E</item>
+        <item name="colorAccent">#006637</item>
         <item name="android:fontFamily">@font/catamaran</item>
 
     </style>

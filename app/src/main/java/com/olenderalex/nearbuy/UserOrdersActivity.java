@@ -38,7 +38,7 @@ public class UserOrdersActivity extends AppCompatActivity {
         DatabaseReference orderRef;
         orderRef = FirebaseDatabase.getInstance().getReference()
                 .child(Util.confirmedOrders)
-                .child(Util.currentOnlineUser.getPhone());
+                .child(MainActivity.currentOnlineUser.getPhone());
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

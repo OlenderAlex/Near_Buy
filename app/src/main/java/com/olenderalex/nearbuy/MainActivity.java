@@ -31,13 +31,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView adminSighUpTv;
     private Button userSignUpBtn;
     private String parentDbName;
-
     private ProgressDialog loadingBar;
+
+    public static Users currentOnlineUser;
+    public static Admin currentOnlineAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Paper.init(this);
 
         loginBtnUser = findViewById(R.id.btn_login_user);
         adminSighUpTv = findViewById(R.id.signup_admin);
@@ -69,47 +74,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        checkIfLoginAndPasswordSaved();
+    }
 
-        /*---------------------------------------------------------------------------------------------
-        This block allow to user enter in app if User saved his login data in previous session
-         */
-        Paper.init(this);
+    /*---------------------------------------------------------------------------------------------
+    This block allow to user enter in app if User saved his login data in previous session
+     */
+    private void checkIfLoginAndPasswordSaved() {
 
-        String userPhoneKey = Paper.book().read(Util.userPhoneKey);
-        String userPasswordKey = Paper.book().read(Util.userPasswordKey);
+        String currentLoginKey = Paper.book().read(Util.currentLoginKey);
+        String currentPasswordKey = Paper.book().read(Util.currentPasswordKey);
+        parentDbName = Paper.book().read(Util.currentDbName);
 
-        String sellerPhoneKey = Paper.book().read(Util.adminLoginKey);
-        String sellerPasswordKey = Paper.book().read(Util.adminPasswordKey);
-
-        parentDbName = Paper.book().read(Util.currentUserDbName);
-
-        if (userPhoneKey != "" && userPasswordKey != "") {
-            if (!TextUtils.isEmpty(userPhoneKey) && !TextUtils.isEmpty(userPasswordKey)) {
-                allowAccountAccess(userPhoneKey, userPasswordKey);
+        if (currentLoginKey != "" && currentPasswordKey != "") {
+            if (!TextUtils.isEmpty(currentLoginKey) && !TextUtils.isEmpty(currentPasswordKey)) {
+                allowAccountAccess(currentLoginKey, currentPasswordKey);
 
                 loadingBar.setTitle("You are logging in...");
                 loadingBar.setMessage("Please wait...");
                 loadingBar.setCanceledOnTouchOutside(false);
                 loadingBar.show();
-            }
-        }
-
-        if (userPhoneKey != "" && userPasswordKey != "") {
-            if (!TextUtils.isEmpty(sellerPhoneKey) && !TextUtils.isEmpty(sellerPasswordKey)) {
-                parentDbName = Util.adminDbName;
-                allowAccountAccess(sellerPhoneKey, sellerPasswordKey);
-
-                loadingBar.setTitle("You are logging in....");
-                loadingBar.setMessage("Please wait...");
-                loadingBar.setCanceledOnTouchOutside(false);
-                loadingBar.show();
-            }
-
-        }
-        //-----------------------------------------------------------------------------------------------------
-
+            } }
     }
-
+//----------------------------------------------------------------------------------------------------
 
     private void allowAccountAccess(final String login, final String password) {
         final DatabaseReference RootRef;
@@ -119,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(parentDbName).child(login).exists()) {
-
-
                     //Log in for users
                     if (parentDbName.equals(Util.usersDbName)) {
                         Users userData = snapshot.child(parentDbName).child(login).getValue(Users.class);
@@ -130,10 +115,13 @@ public class MainActivity extends AppCompatActivity {
                             if (userData.getPassword().equals(password)) {
                                 Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
-                                //Current online user
-                                Util.currentOnlineUser = userData;
+
+                                //---Creating Current online user object
+                                currentOnlineUser = new Users(userData);
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
+                                finish();
 
                             } else {
                                 loadingBar.dismiss();
@@ -151,16 +139,21 @@ public class MainActivity extends AppCompatActivity {
                     //Log in for admins
                     if (parentDbName.equals(Util.adminDbName)) {
                         Admin adminData = snapshot.child(parentDbName).child(login).getValue(Admin.class);
-                        // Checking if account with entered logi exists in data base
+
+                        // Checking if account with entered login exists in data base
                         if (Objects.requireNonNull(adminData).getLogin().equals(login)) {
 
                             if (adminData.getPassword().equals(password)) {
                                 Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
-                                //Current online admin
-                                Util.currentOnlineAdmin = adminData;
+
+
+                                //---Creating Current online admin object
+                                currentOnlineAdmin = new Admin(adminData);
                                 Intent intent = new Intent(MainActivity.this, AdminHomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
+                                finish();
 
                             } else {
                                 loadingBar.dismiss();
@@ -174,8 +167,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -183,64 +174,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
-//
-//        final DatabaseReference RootRef;
-//        RootRef= FirebaseDatabase.getInstance().getReference();
-//
-//        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child(parentDbName).child(phone).exists()){
-//
-//                    Users userData =snapshot.child(parentDbName).child(phone).getValue(Users.class);
-//
-//                    /*
-//                    Checking if account with entered phone number exists in data base
-//                     */
-//                    if(Objects.requireNonNull(userData).getPhone().equals(phone))
-//                    {
-//
-//                        if(userData.getPassword().equals(password)) {
-//
-//                            /*
-//                            Entering as seller
-//                             */
-//                            if (parentDbName.equals(Util.adminDbName)) {
-//
-//                                loadingBar.dismiss();
-//                                Intent intent = new Intent(MainActivity.this, SellerCategoryActivity.class);
-//                                Util.currentOnlineUser=userData;
-//                                startActivity(intent);
-//                            }
-//
-//                             /*
-//                            Entering as user
-//                             */
-//                            else {
-//
-//                                loadingBar.dismiss();
-//                                Intent intentLogin = new Intent(MainActivity.this, HomeActivity.class);
-//                                Util.currentOnlineUser=userData;
-//                                startActivity(intentLogin);
-//                            }
-//                        }else
-//                        {
-//
-//                            Toast.makeText(MainActivity.this,"Incorrect password",Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//
-//                }else{
-//                    Toast.makeText(MainActivity.this,"Account with this phone number do not exists",Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }

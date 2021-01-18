@@ -108,7 +108,9 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                                 loadingBar.dismiss();
 
                                 Intent intentLogin =new Intent(AdminRegistrationActivity.this,MainActivity.class);
+                                intentLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intentLogin);
+                                finish();
                             }else
                                 Toast.makeText(AdminRegistrationActivity.this ,"Ooops ,there are some problems. Please try again",Toast.LENGTH_LONG).show();
 

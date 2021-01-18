@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.paperdb.Paper;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -15,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -32,32 +32,47 @@ import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.ViewHolder.CartViewHolder;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class CartActivity extends AppCompatActivity {
 
+    private static final String TAG ="msg" ;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private Button nextProcessBtn;
+    private Button checkoutBtn;
     private int totalPrice=0;
+    private DatabaseReference cartListRef;
 
-
+    private String orderNumber="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        Paper.init(this);
+        cartListRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(Util.cartListStDbName)
+                .child(MainActivity.currentOnlineUser.getPhone());
+
 
         recyclerView=findViewById(R.id.cart_list);
         recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        nextProcessBtn= findViewById(R.id.next_process_btn);
-        nextProcessBtn.setOnClickListener(new View.OnClickListener() {
+        checkoutBtn = findViewById(R.id.next_process_btn);
+        checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                createOrder();
                 Intent intent =new Intent(CartActivity.this,ConfirmOrderActivity.class);
-                intent.putExtra(Util.totalPrice,String.valueOf(totalPrice));
+                Bundle bundle=new Bundle();
+                bundle.putString(Util.orderNumber,orderNumber);
+                bundle.putString(Util.totalPrice,String.valueOf(totalPrice));
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
             }
@@ -69,15 +84,9 @@ public class CartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        final DatabaseReference cartListRef = FirebaseDatabase.getInstance()
-                .getReference().child(Util.cartListStDbName);
-
         FirebaseRecyclerOptions <Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-                .setQuery(cartListRef.child(Util.usersView)
-                        .child(Util.currentOnlineUser.getPhone()),Cart.class)
+                .setQuery(cartListRef,Cart.class)
                  .build();
-
-
         FirebaseRecyclerAdapter <Cart , CartViewHolder>  adapter= new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
             @SuppressLint("SetTextI18n")
             @Override
@@ -86,74 +95,125 @@ public class CartActivity extends AppCompatActivity {
                 holder.productQuantityTxt.setText("Amount: "+model.getQuantity());
                 holder.productNameTxt.setText(model.getProductName());
                 holder.productPriceTxt.setText("Price: "+model.getPrice());
-               Picasso.get().load(model.getImage()).into(holder.productIv);
-
+                Picasso.get().load(model.getImage()).into(holder.productIv);
 
                 //Calculating total price
-
                 int singleProductPrice=Integer.parseInt(model.getPrice())*Integer.parseInt(model.getQuantity());
                 totalPrice+=singleProductPrice;
-
                 if(totalPrice!=0){
-                    nextProcessBtn.setVisibility(View.VISIBLE);
+                    checkoutBtn.setVisibility(View.VISIBLE);
                 }
-
                 //Delete product from cart
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         CharSequence[] editProduct = new CharSequence[] {
                                 "Edit",
                                 "Delete"
                         };
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
                         builder.setTitle("Edit product:");
 
                         builder.setItems(editProduct, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(final DialogInterface dialog, int which) {
                                 if(which==0){
                                     Intent intent =new Intent(CartActivity.this,ProductDetailsActivity.class);
                                     intent.putExtra(Util.productId,model.getId());
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
+                                    finish();
                                 }
                                 if(which==1){
-                                    cartListRef.child(Util.usersView)
-                                            .child(Util.currentOnlineUser.getPhone())
-                                            .child(model.getId())
+                                    cartListRef.child(model.getId())
                                             .removeValue()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if(task.isSuccessful()){
-                                                        Toast.makeText(CartActivity.this,"Product removed from cart",Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(CartActivity.this
+                                                                ,"Product removed from cart",Toast.LENGTH_LONG).show();
 
-                                                        Intent intent =new Intent(CartActivity.this,CartActivity.class);
-                                                        startActivity(intent);
-                                                    }
-                                                }
-                                            });
-                                }
+                                                        dialog.dismiss();
+                                                    } }}); }
                             }
-                        });
-                        builder.show();
+                        });builder.show();
                     }
-                });
-            }
-
+                }); }
             @NonNull
             @Override
             public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
                 View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout,parent,false);
                 CartViewHolder viewHolder = new CartViewHolder(view);
                 return viewHolder ;
-            }
-        };
-
+            }};
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
+
+
+
+    private void createOrder() {
+// firebase refs
+        final DatabaseReference ordersListRef = FirebaseDatabase.getInstance()
+                .getReference().child(Util.orders);
+
+        //create unique order number
+        final String saveCurrentDate,saveCurrentTime;
+        Calendar calFroDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("ddMMyyyy");
+        saveCurrentDate = currentDate.format(calFroDate.getTime());
+        SimpleDateFormat currentTime = new SimpleDateFormat("HHmmss");
+        saveCurrentTime = currentTime.format(calFroDate.getTime());
+
+        orderNumber=MainActivity.currentOnlineUser.getPhone()+saveCurrentDate+saveCurrentTime;
+
+        // copy products data from shopping cart (Cart List table in Firebase)
+        // to Order db table in Users view
+            ValueEventListener valueEventListenerUsers = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ordersListRef.child(Util.usersView)
+                            .child(MainActivity.currentOnlineUser.getPhone())
+                            .child(orderNumber)
+                            .setValue(dataSnapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isComplete()) {
+                                Log.d(TAG, "Success!");
+                            } else {
+                                Log.d(TAG, "Copy failed!");
+                            }
+                        }
+                    });
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+            cartListRef.addListenerForSingleValueEvent(valueEventListenerUsers);
+
+    // copy products data from shopping cart (Cart List table in Firebase)
+    // to Order db table in Admin view
+    ValueEventListener valueEventListenerAdmin = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            ordersListRef.child(Util.adminView)
+                    .child(orderNumber)
+                    .setValue(dataSnapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isComplete()) {
+                        Log.d(TAG, "Success!");
+                    } else {
+                        Log.d(TAG, "Copy failed!");
+                    }
+                }
+            });
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {}
+    };
+            cartListRef.addListenerForSingleValueEvent(valueEventListenerAdmin);
+}
 
 }

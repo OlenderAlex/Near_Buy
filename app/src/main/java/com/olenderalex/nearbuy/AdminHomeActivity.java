@@ -62,8 +62,9 @@ public class AdminHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Delete seller's password and phone number from phone memory
                 Paper.book().destroy();
-                Intent intent = new Intent(AdminHomeActivity.this, MainActivity.class);
+                Intent intent = new Intent(AdminHomeActivity.this, MainActivity.class); intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 //------------------------------------------------------------------------------------------------------

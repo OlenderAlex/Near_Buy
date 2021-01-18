@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SellerDisplayConfirmedOrderByUser">
+    tools:context=".AdminDisplayOrderDetails">
 
     <RelativeLayout
         android:id="@+id/rel_layout_seller_display_confirmed_orders"
@@ -33,9 +28,9 @@
             android:layout_marginTop="40dp" />
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_seller_display_order"
+        android:id="@+id/admin_display_order_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rel_layout_seller_display_confirmed_orders"
         />
-</RelativeLayout></ScrollView>
+</RelativeLayout>

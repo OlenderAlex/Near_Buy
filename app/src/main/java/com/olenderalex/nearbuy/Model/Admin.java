@@ -6,6 +6,11 @@ public class Admin {
 
     }
 
+    public Admin(Admin admin) {
+        this.name = admin.name;
+        this.password = admin.password;
+        this.login = admin.login;
+    }
     public Admin(String name, String phone, String login) {
         this.name = name;
         this.password = phone;

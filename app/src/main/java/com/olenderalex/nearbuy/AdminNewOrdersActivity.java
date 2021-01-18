@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,13 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.olenderalex.nearbuy.Model.Orders;
 import com.olenderalex.nearbuy.Utils.Util;
-import com.olenderalex.nearbuy.ViewHolder.SellerOrdersViewHolder;
+import com.olenderalex.nearbuy.ViewHolder.AdminOrdersViewHolder;
 
 public class AdminNewOrdersActivity extends AppCompatActivity {
-
     private RecyclerView ordersList;
     private DatabaseReference  ordersRef;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +42,17 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseRecyclerOptions<Orders> options=
                 new FirebaseRecyclerOptions.Builder<Orders>()
-                .setQuery(ordersRef, Orders.class)
+                .setQuery(ordersRef.child(Util.adminView)
+                        , Orders.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Orders, SellerOrdersViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Orders, SellerOrdersViewHolder>(options) {
+        FirebaseRecyclerAdapter<Orders, AdminOrdersViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Orders, AdminOrdersViewHolder>(options) {
+                    @SuppressLint("SetTextI18n")
                     @Override
-                    protected void onBindViewHolder(@NonNull SellerOrdersViewHolder holder, final int position, @NonNull final Orders model) {
+                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, final int position, @NonNull final Orders model) {
 
                         holder.userName.setText(model.getName());
                         holder.userPhone.setText("Phone : "+model.getPhone());
@@ -64,11 +64,11 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 String userId =getRef(position).getKey();
-                                Intent intent =new Intent(AdminNewOrdersActivity.this , SellerDisplayConfirmedOrderByUser.class);
+                                Intent intent =new Intent(AdminNewOrdersActivity.this , AdminDisplayOrderDetails.class);
 
                                 //send phone number to display in  SellerDisplayConfirmedOrderByUser
                                 //products that ordered
-                                intent.putExtra(Util.userId,userId);
+                                intent.putExtra(Util.orderNumber,model.getOrderNumber());
                                 startActivity(intent);
                             }
                         });
@@ -83,11 +83,10 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                                         "Yes",
                                         "No"
                                 };
-
                                 AlertDialog.Builder builder =new AlertDialog.Builder(AdminNewOrdersActivity.this);
                                 final AlertDialog optionDialog = builder.create();
 
-                                builder.setTitle("Is order delivered?");
+                                builder.setTitle("Is order Shipped?");
 
                                 builder.setItems(isDelivered, new DialogInterface.OnClickListener() {
                                     @Override
@@ -112,12 +111,12 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
 
                     @NonNull
                     @Override
-                    public SellerOrdersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    public AdminOrdersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                         View view = LayoutInflater.from(parent.getContext())
                                 .inflate(R.layout.new_orders_layout,parent,false);
 
-                        return new SellerOrdersViewHolder(view);
+                        return new AdminOrdersViewHolder(view);
                     }
                 };
         ordersList.setAdapter(adapter);

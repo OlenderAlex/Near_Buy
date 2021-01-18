@@ -1,5 +1,7 @@
 package com.olenderalex.nearbuy.Model;
 
+import androidx.annotation.NonNull;
+
 public class Users {
     private String name ,phone,password ,image ,address,city;
 
@@ -7,13 +9,23 @@ public class Users {
 
     }
 
-    public Users(String name,String id, String phone, String password, String image, String address,String city) {
+
+
+    public Users(String name, String id, String phone, String password, String image, String address, String city) {
         this.name = name;
         this.phone = phone;
         this.password = password;
         this.image = image;
         this.address = address;
         this.city=city;
+    }
+    public Users(Users user) {
+        this.name = user.name;
+        this.phone = user.phone;
+        this.password = user.password;
+        this.image =user. image;
+        this.address = user.address;
+        this.city=user.city;
     }
 
     public String getCity() {

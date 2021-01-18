@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         loginAdminTv = findViewById(R.id.tv_login_admin);
         loginUserTv = findViewById(R.id.tv_login_user);
 
-
         chkBoxRememberMe = findViewById(R.id.login_remember_me_chkbox);
         Paper.init(this);
 
@@ -104,21 +103,15 @@ public class LoginActivity extends AppCompatActivity {
             loadingBar.setMessage("Please wait...");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
+
         }
     }
-
-
-
     /*
     Comparing the entered account data with realtime database.
     Allowing or denying access to user account
      */
-
     private void allowAccountAccess(final String login, final String password) {
-
         checkBoxCheck(login,password);
-
-
 
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -127,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(parentDbName).child(login).exists()) {
-
 
                     //Log in for users
                     if (parentDbName.equals(Util.usersDbName)) {
@@ -139,37 +131,40 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
                                 //Current online user
-                                Util.currentOnlineUser = userData;
+                                MainActivity.currentOnlineUser = userData;
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
-
-                            } else {
+                                finish();
+                            }
+                            else {
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
                             }
-
                         } else {
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this,
                                     "Account with this login or phone number do not exists", Toast.LENGTH_LONG).show();
                         }
                     }
-
                     loadingBar.dismiss();
+
                     //Log in for admins
                     if (parentDbName.equals(Util.adminDbName)) {
                         Admin adminData = snapshot.child(parentDbName).child(login).getValue(Admin.class);
+
                         // Checking if account with entered logi exists in data base
                         if (Objects.requireNonNull(adminData).getLogin().equals(login)) {
-
                             if (adminData.getPassword().equals(password)) {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
-                                //Current online admin
-                                Util.currentOnlineAdmin = adminData;
-                                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
-                                startActivity(intent);
 
+                                //Current online admin
+                                MainActivity.currentOnlineAdmin = adminData;
+                                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
@@ -180,34 +175,26 @@ public class LoginActivity extends AppCompatActivity {
                                     "Account with this login or phone number do not exists", Toast.LENGTH_LONG).show();
                         }
                     }
+                }else{
+                    loadingBar.dismiss();
+                    Toast.makeText(LoginActivity.this,
+                            "Account with this login or phone number do not exists", Toast.LENGTH_LONG).show();
                 }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        loadingBar.dismiss();
     }
 
+    //Saving user account data in android phone memory for staying logged in
     private void checkBoxCheck(final String login, final String password) {
-
-        //Saving user account data in android phone memory for staying logged in
         if (chkBoxRememberMe.isChecked()) {
-            if (parentDbName.equals(Util.usersDbName)) {
-                Paper.book().write(Util.userPhoneKey, login);
-                Paper.book().write(Util.userPasswordKey, password);
-                Paper.book().write(Util.currentUserDbName, parentDbName);
-
-            }
-
-            else {
-                Paper.book().write(Util.adminLoginKey, login);
-                Paper.book().write(Util.adminPasswordKey, password);
-                Paper.book().write(Util.currentUserDbName, parentDbName);
-            }
+                Paper.book().write(Util.currentLoginKey, login);
+                Paper.book().write(Util.currentPasswordKey, password);
+                Paper.book().write(Util.currentDbName, parentDbName); }
         }
-    }
 
 }

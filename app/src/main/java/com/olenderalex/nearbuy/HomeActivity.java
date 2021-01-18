@@ -2,7 +2,10 @@
 package com.olenderalex.nearbuy;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +20,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +31,6 @@ import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Products;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
@@ -41,7 +41,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class HomeActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,16 +64,13 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         this.configureToolBar();
         this.configureDrawerLayout();
         this.configureNavigationView();
+        Paper.init(this);
 
         productsRef = FirebaseDatabase.getInstance().getReference().child(Util.productsDbName);
         recyclerMenu = findViewById(R.id.recycler_menu);
         recyclerMenu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManager);
-
-
-        Paper.init(this);
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,30 +86,35 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         profileIv = headerView.findViewById(R.id.profile_image);
 
 
-            userName.setText(Util.currentOnlineUser.getName());
-            Picasso.get().load(Util.currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
+
     }
 
 
-    //Displaying products on home page
-
+       /*
+        retrieve all products data from realtime database
+        display the product data in recycler view on HomeActivity
+     */
     @Override
     protected void onStart() {
         super.onStart();
-        /*
-        retrieve all products data from realtime database
-         */
+
+        userName.setText(MainActivity.currentOnlineUser.getName());
+        Picasso.get().load(MainActivity.currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
+
+
+        final DatabaseReference favoriteRef;
+        favoriteRef = FirebaseDatabase.getInstance().getReference();
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>().
                 setQuery(productsRef, Products.class).build();
-        /*
-        display the product data in recycler view on HomeActivity
-         */
+
+        //Get products data
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull final ProductViewHolder holder
                             , int position, @NonNull final Products model) {
 
+                        //Set products data in View components
                         holder.productNameTV.setText(model.getProductName());
                         holder.productPriceTV.setText("Price : " + model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.productImage);
@@ -122,60 +123,34 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                    Intent intent = new Intent(HomeActivity.this
-                                            , ProductDetailsActivity.class);
-                                    intent.putExtra(Util.productId, model.getId());
-                                    startActivity(intent);
-                                }
-                        });
-
-//-------------  Checking if product already added to favorites
-//-------------  and displaying filled heart icon if added
-                        final DatabaseReference rootRef;
-                        rootRef = FirebaseDatabase.getInstance().getReference();
-                        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.child(Util.favoriteProductsDbName)
-                                        .child(Util.currentOnlineUser.getPhone())
-                                        .child(model.getId())
-                                        .exists())
-                                {
-                                    holder.favoriteEmptyIv.setVisibility(View.GONE);
-                                    holder.favoriteFilledIv.setVisibility(View.VISIBLE);
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                Intent intent = new Intent(HomeActivity.this
+                                        , ProductDetailsActivity.class);
+                                intent.putExtra(Util.productId, model.getId());
+                                startActivity(intent);
                             }
                         });
-
 
                         //add to favorites by clicking on heart icon
                         holder.favoriteEmptyIv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 addToFavoriteList(model);
-                                holder.favoriteEmptyIv.setClickable(false);
-                                holder.favoriteEmptyIv.setVisibility(View.GONE);
 
-                                holder.favoriteFilledIv.setClickable(true);
-                                holder.favoriteFilledIv.setVisibility(View.VISIBLE);
+                                //Icon will appears as a filled heart for a 0. sec
+                                new CountDownTimer(200, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        holder.favoriteEmptyIv.setVisibility(View.GONE);
+                                        holder.favoriteFilledIv.setVisibility(View.VISIBLE);
+                                    }
 
+                                    public void onFinish() {
+                                        holder.favoriteEmptyIv.setVisibility(View.VISIBLE);
+                                        holder.favoriteFilledIv.setVisibility(View.GONE);
+                                    }
+                                }.start();
                             }
                         });
-                        //Delete from favorites by clicking on heart icon
-                        holder.favoriteFilledIv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteFromFavoriteList(model);
-                                holder.favoriteFilledIv.setClickable(false);
-                                holder.favoriteFilledIv.setVisibility(View.GONE);
 
-                                holder.favoriteEmptyIv.setVisibility(View.VISIBLE);
-                                holder.favoriteEmptyIv.setClickable(true);
-                            }
-                        });
                     }
                     @NonNull
                     @Override
@@ -227,7 +202,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         }
         if (id == R.id.nav_my_account) {
 
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(HomeActivity.this, UserAccountSettingsActivity.class);
             startActivity(intent);
         }
         if (id == R.id.nav_category) {
@@ -293,7 +268,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(Util.currentOnlineUser.getPhone())
+                .child(Util.currentLoginKey)
                 .child(model.getId());
 
         //Storing the data
@@ -309,7 +284,12 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(HomeActivity.this,"Added to favorites", Toast.LENGTH_SHORT).show();
+                            Toast toast=Toast.makeText(
+                                    HomeActivity.this
+                                    ,"Added to favorites"
+                                    , Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 570);
+                            toast.show();
                         }
                     }});
     }
@@ -320,7 +300,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(Util.currentOnlineUser.getPhone());
+                .child(MainActivity.currentOnlineUser.getPhone());
 
         favoritesListRef.child(model.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

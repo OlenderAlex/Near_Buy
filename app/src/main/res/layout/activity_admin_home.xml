@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -66,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/darkBlue"
             android:layout_gravity="center"
             android:text="@string/new_orders1"
             android:textSize="18sp"/>
@@ -95,7 +91,7 @@
             android:text="@string/manage_products"
             android:layout_marginStart="20dp"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/darkBlue"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -123,11 +119,12 @@
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:text="@string/add_new_product1"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/darkBlue"
             android:textSize="18sp"/>
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/layout_shipped_orders_admin"
         android:layout_width="match_parent"
         android:weightSum="2"
         android:layout_height="43dp"
@@ -140,19 +137,76 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/admin_new_orders"
+            android:src="@drawable/done_img"
             android:contentDescription="@string/todo"
             android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_orders"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/shipped_orders"
+            android:textColor="@color/darkBlue"
             android:textSize="18sp"/>
-
     </LinearLayout>
 
 
-</LinearLayout></ScrollView>
+    <LinearLayout
+        android:id="@+id/layout_owner_show_admin_activity"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_admins_activity"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/admins_activity"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_owner_register_new_admin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/reg_new_admin"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/create_new_admin_account"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</LinearLayout>

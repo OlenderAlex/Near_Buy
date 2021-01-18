@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,8 +37,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView productPrice,productDescription  ,productName;
     private String imageUri="";
     private String productID="";
-    public ImageView favoriteEmptyIv,favoriteFilledIv;
-
+    private ImageView favoriteEmptyIv,favoriteFilledIv;
+    private FloatingActionButton goToCartIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         favoriteEmptyIv=findViewById(R.id.favorite_empty_details);
         favoriteFilledIv=findViewById(R.id.favorite_filled_details);
         numberOfProductsBtn=findViewById(R.id.number_of_products_button_details);
+        goToCartIv=findViewById(R.id.go_to_cart_details);
 
         getProductDetails(productID);
         isAlreadyInFavorite(productID);
@@ -86,6 +88,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                 favoriteEmptyIv.setVisibility(View.VISIBLE);
                 favoriteEmptyIv.setClickable(true);
+            }
+        });
+
+        goToCartIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(ProductDetailsActivity.this
+                        ,CartActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -132,7 +143,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         final DatabaseReference carListRef = FirebaseDatabase.getInstance()
                 .getReference()
-                .child(Util.cartListStDbName);
+                .child(Util.cartListStDbName)
+                .child(MainActivity.currentOnlineUser.getPhone());
 
         //Storing the data
 
@@ -144,37 +156,24 @@ public class ProductDetailsActivity extends AppCompatActivity {
         cartMap.put(Util.uploadedTime, saveCurrentTime);
         cartMap.put(Util.productsQuantity, numberOfProductsBtn.getNumber());
         cartMap.put(Util.productImage, imageUri);
-        cartMap.put(Util.productDiscount, "");
 
-        carListRef.child(Util.usersView).child(Util.currentOnlineUser.getPhone())
-                .child(productID)
+        carListRef.child(productID)
                 .updateChildren(cartMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-
-                        if (task.isSuccessful()) {
-                            carListRef.child(Util.adminView).child(Util.currentOnlineUser.getPhone())
-                                    .child(productID)
-                                    .updateChildren(cartMap)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(ProductDetailsActivity.this,"Added to cart", Toast.LENGTH_LONG).show();
-
-                                                Intent intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
-                                                startActivity(intent);
+                                                Toast toast=Toast.makeText(
+                                                        ProductDetailsActivity.this
+                                                        ,"Added to cart"
+                                                        , Toast.LENGTH_LONG);
+                                                toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 70);
+                                                toast.show();
                                             }
 
                                         }
                                     });
                         }
-                    }
-                });
-
-    }
-
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -182,7 +181,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(Util.currentOnlineUser.getPhone())
+                .child(MainActivity.currentOnlineUser.getPhone())
                 .child(productID);
 
         //Storing the data
@@ -198,7 +197,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ProductDetailsActivity.this,"Added to favorites", Toast.LENGTH_SHORT).show();
+                            Toast toast=Toast.makeText(
+                                    ProductDetailsActivity.this,"Added to favorites"
+                                    , Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 70);
+                            toast.show();
                         }
                     }});
     }
@@ -209,7 +212,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(Util.currentOnlineUser.getPhone());
+                .child(MainActivity.currentOnlineUser.getPhone());
 
         favoritesListRef.child(productID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -231,7 +234,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
                if (snapshot.child(Util.favoriteProductsDbName)
-                       .child(Util.currentOnlineUser.getPhone())
+                       .child(MainActivity.currentOnlineUser.getPhone())
                        .child(productID)
                        .exists())
                {
