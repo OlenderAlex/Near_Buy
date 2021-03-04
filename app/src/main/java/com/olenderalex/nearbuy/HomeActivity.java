@@ -1,6 +1,7 @@
 
 package com.olenderalex.nearbuy;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,11 +22,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.olenderalex.nearbuy.Model.Users;
+import com.olenderalex.nearbuy.User.CartActivity;
+import com.olenderalex.nearbuy.User.FavoriteProductsActivity;
+import com.olenderalex.nearbuy.User.ProductDetailsActivity;
+import com.olenderalex.nearbuy.User.SearchByCategoryActivity;
+import com.olenderalex.nearbuy.User.SearchProductsActivity;
+import com.olenderalex.nearbuy.User.UserAccountSettingsActivity;
+import com.olenderalex.nearbuy.User.UserOrdersActivity;
 import com.olenderalex.nearbuy.ViewHolder.ProductViewHolder;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Products;
@@ -51,12 +57,11 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
+    private TextView shopAll;
     private TextView userName;
     private ImageView profileIv;
+    private Users currentOnlineUser;
 
-
-    private String userType ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +69,13 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         this.configureToolBar();
         this.configureDrawerLayout();
         this.configureNavigationView();
-        Paper.init(this);
 
+        //Retrieve data of current user from local DB
+        Paper.init(this);
+        currentOnlineUser=new Users();
+        currentOnlineUser= Paper.book().read(Util.currentOnlineUser);
+
+        shopAll = findViewById(R.id.shop_all);
         productsRef = FirebaseDatabase.getInstance().getReference().child(Util.productsDbName);
         recyclerMenu = findViewById(R.id.recycler_menu);
         recyclerMenu.setHasFixedSize(true);
@@ -76,7 +86,14 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(HomeActivity.this,CartActivity.class);
+                Intent intent =new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+        shopAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(HomeActivity.this, SearchByCategoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,7 +102,14 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         userName = headerView.findViewById(R.id.user_name_tv);
         profileIv = headerView.findViewById(R.id.profile_image);
 
-
+        String name=currentOnlineUser.getName();
+        if(!name.equals("")) {
+            userName.setText(name);
+        }
+        if(!currentOnlineUser.getImage().equals(""))
+        {
+            Picasso.get().load(currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
+        }
 
     }
 
@@ -98,25 +122,24 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
-        userName.setText(MainActivity.currentOnlineUser.getName());
-        Picasso.get().load(MainActivity.currentOnlineUser.getImage()).placeholder(R.drawable.profile_img).into(profileIv);
-
-
         final DatabaseReference favoriteRef;
         favoriteRef = FirebaseDatabase.getInstance().getReference();
         FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>().
-                setQuery(productsRef, Products.class).build();
+                setQuery(productsRef
+                        .orderByChild(Util.dealPrice).equalTo(Util.deal), Products.class).build();
 
         //Get products data
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     protected void onBindViewHolder(@NonNull final ProductViewHolder holder
                             , int position, @NonNull final Products model) {
 
                         //Set products data in View components
                         holder.productNameTV.setText(model.getProductName());
-                        holder.productPriceTV.setText("Price : " + model.getPrice());
+                        holder.productPriceTV.setText("Price : " + model.getPrice()+" NIS");
+                        holder.productPriceTV.setTextColor(Color.parseColor("#9F0303"));
                         Picasso.get().load(model.getImage()).into(holder.productImage);
 
                         // Go to product detail page when clicked
@@ -136,7 +159,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                             public void onClick(View v) {
                                 addToFavoriteList(model);
 
-                                //Icon will appears as a filled heart for a 0. sec
+                               //Icon will appears as a filled heart for a 0.1 sec
                                 new CountDownTimer(200, 1000) {
                                     public void onTick(long millisUntilFinished) {
                                         holder.favoriteEmptyIv.setVisibility(View.GONE);
@@ -156,7 +179,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                     @Override
                     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).
-                                inflate(R.layout.product_items_layout, parent, false);
+                                inflate(R.layout.product_items_layout2, parent, false);
                         return new ProductViewHolder(view);
                     }
                 };
@@ -175,13 +198,13 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Intent intentSearch =new Intent(HomeActivity.this,SearchProductsActivity.class);
+                Intent intentSearch =new Intent(HomeActivity.this, SearchProductsActivity.class);
                 startActivity(intentSearch);
                 return true;
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
-                Intent intentFavorites=new Intent(HomeActivity.this,FavoriteProductsActivity.class);
+                Intent intentFavorites=new Intent(HomeActivity.this, FavoriteProductsActivity.class);
                 startActivity(intentFavorites);
                 return true;
             default:
@@ -206,11 +229,11 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
             startActivity(intent);
         }
         if (id == R.id.nav_category) {
-            Intent intent =new Intent(HomeActivity.this,SearchByCategoryActivity.class);
+            Intent intent =new Intent(HomeActivity.this, SearchByCategoryActivity.class);
             startActivity(intent);
         }
         if (id == R.id.nav_orders) {
-            Intent intent =new Intent(HomeActivity.this,UserOrdersActivity.class);
+            Intent intent =new Intent(HomeActivity.this, UserOrdersActivity.class);
             startActivity(intent);
         }
         if (id == R.id.nav_favorite) {
@@ -263,12 +286,12 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
     }
 
 //------------------------------------------------------------------------------------------------------------------
-//-----------   Adding or deleting product to favorites
+//-----------   Adding  product to favorites
     private void addToFavoriteList(Products model) {
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(Util.currentLoginKey)
+                .child(currentOnlineUser.getPhone())
                 .child(model.getId());
 
         //Storing the data
@@ -288,7 +311,6 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
                                     HomeActivity.this
                                     ,"Added to favorites"
                                     , Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 570);
                             toast.show();
                         }
                     }});
@@ -300,7 +322,7 @@ public class HomeActivity extends AppCompatActivity  implements NavigationView.O
         final DatabaseReference favoritesListRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Util.favoriteProductsDbName)
-                .child(MainActivity.currentOnlineUser.getPhone());
+                .child(currentOnlineUser.getPhone());
 
         favoritesListRef.child(model.getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

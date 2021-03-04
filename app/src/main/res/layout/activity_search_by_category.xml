@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
+    android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".AdminChooseByCategoryActivity"
+tools:context=".Admin.AdminChooseByCategoryActivity"
 android:orientation="vertical"
 android:background="@color/white"
     >
@@ -34,6 +33,7 @@ android:background="@color/white"
         android:layout_marginTop="10dp"/>
 </LinearLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
        />
     <LinearLayout
@@ -55,43 +55,46 @@ android:background="@color/white"
         >
 
         <ImageView
-            android:id="@+id/search_by_category_comps"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/comps"
+            android:id="@+id/search_by_category_vegetables"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/vegetables"
             android:layout_weight="1"
             android:layout_marginTop="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/computers"
-            android:layout_marginTop="5dp"/>
+            android:text="@string/vegetables"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/search_by_category_appliances"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/electronics1"
+            android:id="@+id/search_by_category_cereals"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/cereals"
             android:layout_weight="1"
             android:layout_marginTop="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/appliances"
-            android:layout_marginTop="5dp"/>
+            android:text="@string/cereals"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/search_by_category_phones"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/search_by_category_spices"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@drawable/smartphone"
+            android:src="@drawable/spice"
             android:layout_marginTop="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/smartphones"
-            android:layout_marginTop="5dp"/>
+            android:text="@string/spices"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
 
     </LinearLayout>
     <LinearLayout
@@ -103,97 +106,105 @@ android:background="@color/white"
         android:layout_weight="1"
         android:weightSum="3"
         >
-
-        <ImageView
-            android:id="@+id/search_by_category_clothes"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/wristwatch"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/watches"
-            android:layout_marginTop="5dp"/>
-
-        <ImageView
-            android:id="@+id/search_by_category_toys"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:src="@drawable/toys_color"
-            android:layout_marginTop="10dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/toys"
-            android:layout_marginTop="5dp"/>
-
-        <ImageView
-            android:id="@+id/search_by_category_sport"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:src="@drawable/sport_color"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sport_equipment"
-            android:layout_marginTop="5dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:weightSum="3"
-        android:layout_weight="1"
-        >
-
-        <ImageView
-            android:id="@+id/search_by_category_food"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:src="@drawable/groceries"
-            android:layout_marginTop="10dp"
-            tools:ignore="NestedWeights" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/food"
-            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/search_by_category_fruits"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/fruits"
             android:layout_weight="1"
-            android:src="@drawable/market"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fresh_marker"
-            android:layout_marginTop="5dp"/>
+            android:text="@string/fruits"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/search_by_category_pets"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/search_by_category_canned_food"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@drawable/pet_color"
+            android:src="@drawable/canned_food"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/canned_food"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/search_by_category_soft_drinks"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/soft_drink"
             android:layout_marginTop="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/for_pets"
+            android:text="@string/soft_drinks"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:weightSum="3"
+        android:layout_weight="1"
+        >
+
+        <ImageView
+            android:id="@+id/search_by_category_dairy"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/dairy_products"
+            android:layout_marginTop="10dp"
+            tools:ignore="NestedWeights" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dairy"
+            android:textSize="20sp"
             android:layout_marginTop="5dp"/>
+        <ImageView
+            android:id="@+id/search_by_category_bakery"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/bake" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bakery"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/search_by_category_eggs"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/eggs"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eggs"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 

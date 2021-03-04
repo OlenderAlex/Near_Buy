@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".CartActivity"
+    tools:context=".User.CartActivity"
     >
     <RelativeLayout
         android:id="@+id/rel_layout"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:text="@string/your_items1"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -30,6 +30,7 @@
 
     </RelativeLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
         android:layout_marginTop="40dp" />
 

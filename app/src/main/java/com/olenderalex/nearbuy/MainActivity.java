@@ -7,6 +7,7 @@ import io.paperdb.Paper;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.olenderalex.nearbuy.Admin.AdminHomeActivity;
 import com.olenderalex.nearbuy.Model.Admin;
+import com.olenderalex.nearbuy.User.PhoneVerificationActivity;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Users;
 
@@ -28,13 +31,10 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private Button loginBtnUser;
 
-    private TextView adminSighUpTv;
     private Button userSignUpBtn;
     private String parentDbName;
     private ProgressDialog loadingBar;
-
-    public static Users currentOnlineUser;
-    public static Admin currentOnlineAdmin;
+    private TextView forgotPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
         Paper.init(this);
 
         loginBtnUser = findViewById(R.id.btn_login_user);
-        adminSighUpTv = findViewById(R.id.signup_admin);
         userSignUpBtn = findViewById(R.id.btn_user_signUp);
         loadingBar = new ProgressDialog(this);
-
+        forgotPass=findViewById(R.id.forgot_password);
         loginBtnUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,25 +60,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentReg = new Intent(MainActivity.this, PhoneVerificationActivity.class);
-                intentReg.putExtra("Table name", Util.usersDbName);
+                intentReg.putExtra( Util.userPassword,Util.userPassword);
                 startActivity(intentReg);
             }
         });
-        adminSighUpTv.setOnClickListener(new View.OnClickListener() {
+        forgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentReg = new Intent(MainActivity.this, AdminRegistrationActivity.class);
-                intentReg.putExtra("Table name", Util.adminDbName);
-                startActivity(intentReg);
+                Intent intentLogin = new Intent(MainActivity.this, PhoneVerificationActivity.class);
+                intentLogin.putExtra( Util.userPassword,Util.forgotPassword);
+                startActivity(intentLogin);
             }
         });
 
         checkIfLoginAndPasswordSaved();
     }
 
+
+
     /*---------------------------------------------------------------------------------------------
-    This block allow to user enter in app if User saved his login data in previous session
-     */
+        This block allow to user enter in app if User saved his login data in previous session
+         */
     private void checkIfLoginAndPasswordSaved() {
 
         String currentLoginKey = Paper.book().read(Util.currentLoginKey);
@@ -116,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
 
-                                //---Creating Current online user object
-                                currentOnlineUser = new Users(userData);
+                                //Saving current user data to local storage
+                                Paper.book().write(Util.currentOnlineUser,userData);
+
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -148,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
                                 loadingBar.dismiss();
 
 
-                                //---Creating Current online admin object
-                                currentOnlineAdmin = new Admin(adminData);
+                                //Saving current admin data to local storage
+                                Paper.book().write(Util.currentOnlineAdmin,adminData);
                                 Intent intent = new Intent(MainActivity.this, AdminHomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);

@@ -5,7 +5,7 @@
 <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProductDetailsActivity"
+        tools:context=".User.ProductDetailsActivity"
         android:background="@color/white"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,9 +13,10 @@
         >
 
         <ImageView
+            android:layout_marginTop="5dp"
             android:id="@+id/product_image_details"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/todo"
             />
@@ -117,26 +118,21 @@
             >
         </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
-    <ScrollView
-        android:id="@+id/scrolView2"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/div_1">
+
     <TextView
         android:id="@+id/product_description_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/product_description"
+        android:layout_below="@+id/div_11"
         android:textSize="18sp"
-        android:layout_margin="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorPrimaryDark"
         android:scrollbars="vertical"
         />
-</ScrollView>
     <View
-        android:id="@+id/div_1"
+        android:id="@+id/div_11"
         android:layout_below="@+id/add_to_cart_btn_details"
         style="@style/Divider.Horizontal"
         android:layout_margin="10dp" />

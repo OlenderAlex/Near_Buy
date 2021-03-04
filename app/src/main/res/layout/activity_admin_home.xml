@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminHomeActivity"
+    tools:context=".Admin.AdminHomeActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,7 +22,7 @@
         android:gravity="center"
         android:text="@string/manager"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/darkBlue"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginStart="50dp"/>
@@ -39,14 +38,24 @@
         />
     </LinearLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
          />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_orders"
+        android:textColor="@color/darkGrey"
+        android:textSize="19sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"/>
     <LinearLayout
         android:id="@+id/layout_new_orders_admin"
         android:layout_width="match_parent"
         android:weightSum="2"
         android:layout_height="43dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:background="@drawable/background"
         android:clickable="true"
@@ -69,6 +78,95 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/layout_waiting_for_shipping_admin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ready_to_ship"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/waiting_for_shipment"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_shipped_orders_admin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/track_shipping_24"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/shipped_orders"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_delivered_orders_admin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/order_shipped"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="Delivered orders"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_products"
+        android:textColor="@color/darkGrey"
+        android:textSize="19sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"/>
+    <LinearLayout
         android:id="@+id/layout_manage_products_admin"
         android:layout_width="match_parent"
         android:weightSum="2"
@@ -88,7 +186,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/manage_products"
+            android:text="@string/edit_products"
             android:layout_marginStart="20dp"
             android:textSize="18sp"
             android:textColor="@color/darkBlue"
@@ -123,73 +221,31 @@
             android:textSize="18sp"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layout_shipped_orders_admin"
+
+    <TextView
+        android:id="@+id/owner_tv"
         android:layout_width="match_parent"
-        android:weightSum="2"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
+        android:text="Owner"
+        android:textColor="@color/darkGrey"
+        android:textSize="19sp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:background="@drawable/background"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/done_img"
-            android:contentDescription="@string/todo"
-            android:layout_marginStart="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/shipped_orders"
-            android:textColor="@color/darkBlue"
-            android:textSize="18sp"/>
-    </LinearLayout>
+        android:layout_marginStart="20dp"
+        android:visibility="gone"/>
 
 
-    <LinearLayout
-        android:id="@+id/layout_owner_show_admin_activity"
-        android:layout_width="match_parent"
-        android:weightSum="2"
-        android:layout_height="43dp"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:background="@drawable/background"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/show_admins_activity"
-            android:contentDescription="@string/todo"
-            android:layout_marginStart="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="@string/admins_activity"
-            android:textColor="@color/darkBlue"
-            android:textSize="18sp"/>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_owner_register_new_admin"
         android:layout_width="match_parent"
         android:weightSum="2"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal"
         android:background="@drawable/background"
         android:clickable="true"
         android:focusable="true"
+        android:visibility="gone"
         >
 
         <ImageView
@@ -208,5 +264,35 @@
             android:textColor="@color/darkBlue"
             android:textSize="18sp"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_owner_delete_admin"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:contentDescription="@string/todo"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/delete_admin_account1"
+            android:textColor="@color/darkBlue"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
 
 </LinearLayout>

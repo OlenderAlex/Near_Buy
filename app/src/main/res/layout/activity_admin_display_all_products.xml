@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminDisplayAllProductsActivity">
+    tools:context=".Admin.AdminDisplayAllProductsActivity">
     <RelativeLayout
         android:id="@+id/rel_layout_search11"
         android:layout_width="match_parent"
@@ -38,6 +38,7 @@
             android:background="@color/white"
             />
         <View
+            android:background="@color/grey"
             android:layout_below="@+id/et_input_text_admin"
             style="@style/Divider.Horizontal"
             />

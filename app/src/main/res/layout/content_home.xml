@@ -6,12 +6,35 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_home"
-
+    android:background="@color/white"
     >
 
-
+    <TextView
+        android:id="@+id/deals_tv"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/shop_all"
+        android:layout_centerHorizontal="true"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="@string/hot_deals"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+<TextView
+    android:background="@color/white"
+    android:id="@+id/shop_all"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:padding="5dp"
+    android:paddingEnd="10dp"
+    android:text="@string/shop_by_category"
+    android:textSize="15sp"
+    android:textColor="@color/black"
+    android:gravity="end"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/deals_tv"
         android:id="@+id/recycler_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

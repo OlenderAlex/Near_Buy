@@ -42,5 +42,12 @@
             </group>
         </menu>
     </item>
-
+    <item android:title="" >
+    </item>
+<item android:title="@string/nearbuy" >
+</item>
+    <item android:title="@string/store_info" >
+    </item>
+    <item android:title="@string/store_tel" >
+    </item>
 </menu>

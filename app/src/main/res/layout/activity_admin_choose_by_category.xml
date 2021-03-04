@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminChooseByCategoryActivity"
+    tools:context=".Admin.AdminChooseByCategoryActivity"
     android:orientation="vertical"
     android:background="@color/white"
     >
@@ -28,7 +28,7 @@
         android:gravity="center_horizontal"
         android:text="@string/my_store"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginStart="50dp"
@@ -45,6 +45,7 @@
         />
 </LinearLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
         android:layout_marginTop="0dp" />
     <TextView
@@ -54,9 +55,10 @@
         android:text="@string/choose_the_category_of_product_you_want_to_add"
         android:inputType="textMultiLine"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        android:layout_margin="30dp"
+        android:textColor="@color/darkGrey"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         tools:ignore="TextViewEdits" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,45 +79,45 @@
             >
 
             <ImageView
-                android:id="@+id/category_comps"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/comps"
+                android:id="@+id/category_vegetables"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/vegetables"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 tools:ignore="NestedWeights" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/computers"
+                android:text="@string/vegetables"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
             <ImageView
-                android:id="@+id/category_appliances"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/electronics1"
+                android:id="@+id/category_cereals"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/cereals"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/appliances"
+                android:text="@string/cereals"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
             <ImageView
-                android:id="@+id/category_phones"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_spices"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/smartphone"
+                android:src="@drawable/spice"
                 android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/smartphones"
+                android:text="@string/spices"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
@@ -130,47 +132,47 @@
             >
 
             <ImageView
-                android:id="@+id/category_clothes"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/wristwatch"
+                android:id="@+id/category_fruits"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/fruits"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/watches"
+                android:text="@string/fruits"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
             <ImageView
-                android:id="@+id/category_toys"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_canned_food"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/toys_color"
+                android:src="@drawable/canned_food"
                 android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/toys"
+                android:text="@string/canned_food"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"
                 />
 
             <ImageView
-                android:id="@+id/category_sport"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_soft_drinks"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/sport_color"
+                android:src="@drawable/soft_drink"
                 android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sport"
+                android:text="@string/soft_drinks"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
@@ -185,45 +187,46 @@
             >
 
             <ImageView
-                android:id="@+id/category_food"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_dairy"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/groceries"
+                android:src="@drawable/dairy_products"
                 android:layout_marginTop="10dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/food"
+                android:text="@string/dairy"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
             <ImageView
-                android:id="@+id/category_fruits"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_bakery"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/market"
-                android:layout_marginTop="10dp"/>
+                android:src="@drawable/bake"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/todo" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fresh_marker"
+                android:text="@string/bakery"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 
             <ImageView
-                android:id="@+id/category_pets"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/category_eggs"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/pet_color"
+                android:src="@drawable/eggs"
                 android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/for_pets"
+                android:text="@string/eggs"
                 android:layout_marginTop="5dp"
                 android:textSize="20sp"/>
 

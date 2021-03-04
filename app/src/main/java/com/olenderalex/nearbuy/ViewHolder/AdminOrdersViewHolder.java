@@ -14,16 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdminOrdersViewHolder extends RecyclerView.ViewHolder {
 
     public TextView userName , userPhone, userTotalPrice;
-    public TextView userDateAndTime , userAddress;
+    public TextView userDateAndTime , userAddress,orderNumber;
     public ItemClickListener listener;
     public Button showOrdersBtn;
-    public ImageView ivOne,ivTwo,ivThree;
+    public ImageView ivOne;
 
 
     public AdminOrdersViewHolder(@NonNull View itemView) {
         super(itemView);
 
         userName=itemView.findViewById(R.id.user_name_new_orders);
+        orderNumber=itemView.findViewById(R.id.order_number_new_orders);
         userPhone=itemView.findViewById(R.id.user_phone_new_orders);
         userAddress=itemView.findViewById(R.id.user_address_new_orders);
         userTotalPrice=itemView.findViewById(R.id.total_price_new_orders);

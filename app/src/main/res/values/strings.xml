@@ -122,7 +122,6 @@
     <string name="show_details">SHOW DETAILS</string>
     <string name="delete">Delete</string>
     <string name="welcome_to_our_shop_create_new_account_anf_enjoy_our_app">Welcome to NearBuy shop .Create new account and enjoy our app</string>
-    <string name="admnin">Admnin?</string>
     <string name="admin">Admin?</string>
     <string name="shop_as_a_costumer">Shop as a costumer</string>
     <string name="checkout">Checkout</string>
@@ -134,5 +133,38 @@
     <string name="shipped_orders">Shipped orders</string>
     <string name="admins_activity">Admins Activity</string>
     <string name="create_new_admin_account">Create new admin account</string>
-
+    <string name="ready_for_shipping">Ready for shipping</string>
+    <string name="ready_for_shipment">Ready for shipment</string>
+    <string name="order_packed_and_ready">order packed and ready</string>
+    <string name="manage_orders">Manage orders</string>
+    <string name="waiting_for_shipment">Waiting for shipment</string>
+    <string name="master">Master</string>
+    <string name="order_number">Order number</string>
+    <string name="cancel_order">CANCEL ORDER</string>
+    <string name="delivered_orders">DELIVERED ORDERS</string>
+    <string name="ordered_products">ORDERED PRODUCTS</string>
+    <string name="vegetables">vegetables</string>
+    <string name="mushrooms">mushrooms</string>
+    <string name="fruits">fruits</string>
+    <string name="dairy">dairy</string>
+    <string name="canned_food">canned food</string>
+    <string name="eggs">eggs</string>
+    <string name="bakery">bakery</string>
+    <string name="spices">spices</string>
+    <string name="soft_drinks">soft drinks</string>
+    <string name="your_orders">YOUR ORDERS</string>
+    <string name="cereals">cereals</string>
+    <string name="categories">categories</string>
+    <string name="shop_all_products">SHOP ALL PRODUCTS</string>
+    <string name="hot_deals">HOT DEALS%</string>
+    <string name="categories1">CATEGORIES</string>
+    <string name="enter_a_product_name">Enter a product name...</string>
+    <string name="shop_by_category">SHOP BY CATEGORY</string>
+    <string name="deal_price">DEAL PRICE?</string>
+    <string name="delete_product">DELETE PRODUCT</string>
+    <string name="store_info">Address : Tel Aviv , Hertzl 0</string>
+    <string name="store_tel">Phone : 050-000-0000</string>
+    <string name="delete_admin_account">DELETE ADMIN ACCOUNT</string>
+    <string name="delete_admin_account1">Delete admin account</string>
+    <string name="return_to_user_login">Return to User login</string>
 </resources>

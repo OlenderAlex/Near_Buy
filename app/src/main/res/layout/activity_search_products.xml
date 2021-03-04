@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchProductsActivity">
+    tools:context=".User.SearchProductsActivity">
     <RelativeLayout
         android:id="@+id/rel_layout_search"
         android:layout_width="match_parent"
@@ -18,11 +18,12 @@
             android:id="@+id/et_input_text"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:hint="@string/product_name"
+            android:hint="@string/enter_a_product_name"
             android:textSize="18sp"
+            android:paddingStart="20dp"
             android:background="@color/white"
             android:layout_margin="5dp"
-            android:padding="4dp"
+
             />
 
         <Button
@@ -36,9 +37,7 @@
             android:background="@color/white"
             />
 
-        <View
-            style="@style/Divider.Horizontal"
-            android:layout_marginTop="40dp" />
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

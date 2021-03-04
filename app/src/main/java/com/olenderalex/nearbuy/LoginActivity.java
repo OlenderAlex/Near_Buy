@@ -20,7 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.olenderalex.nearbuy.Admin.AdminHomeActivity;
 import com.olenderalex.nearbuy.Model.Admin;
+import com.olenderalex.nearbuy.User.PhoneVerificationActivity;
 import com.olenderalex.nearbuy.Utils.Util;
 import com.olenderalex.nearbuy.Model.Users;
 
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private String parentDbName=Util.usersDbName;
     private CheckBox chkBoxRememberMe;
-    private TextView loginAdminTv;
+    private TextView loginAdminTv,forgotPasswordTv;
     private TextView loginUserTv;
 
 
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
         loginAdminTv = findViewById(R.id.tv_login_admin);
         loginUserTv = findViewById(R.id.tv_login_user);
-
+        forgotPasswordTv = findViewById(R.id.forgot_password2);
         chkBoxRememberMe = findViewById(R.id.login_remember_me_chkbox);
         Paper.init(this);
 
@@ -75,7 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        forgotPasswordTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentLogin = new Intent(LoginActivity.this, PhoneVerificationActivity.class);
+                intentLogin.putExtra( Util.userPassword,Util.forgotPassword);
+                startActivity(intentLogin);
+            }
+        });
 
     }
 
@@ -130,8 +139,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (userData.getPassword().equals(password)) {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
-                                //Current online user
-                                MainActivity.currentOnlineUser = userData;
+
+                                //Saving current user data to local storage
+                                Paper.book().write(Util.currentOnlineUser,userData);
+
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -159,8 +170,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_LONG).show();
                                 loadingBar.dismiss();
 
-                                //Current online admin
-                                MainActivity.currentOnlineAdmin = adminData;
+                                //Saving current admin data to local storage
+                                Paper.book().write(Util.currentOnlineAdmin,adminData);
                                 Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);

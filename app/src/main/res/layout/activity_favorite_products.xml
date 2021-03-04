@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".FavoriteProductsActivity"
+    tools:context=".User.FavoriteProductsActivity"
     >
     <RelativeLayout
         android:id="@+id/rel_layout_favorite"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:text="@string/favorite_products"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -29,6 +29,7 @@
 
     </RelativeLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
         android:layout_marginTop="45dp" />
 

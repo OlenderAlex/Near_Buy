@@ -3,5 +3,5 @@
     <item android:state_pressed="true"
         android:drawable="@color/lightGrey" />
     <item  android:state_focused="false"
-        android:drawable="@color/darkGrey" />
+        android:drawable="@color/darkBlue" />
 </selector>

@@ -6,14 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminAddNewProductActivity"
+    tools:context=".Admin.AdminAddNewProductActivity"
     android:background="@color/white"
     >
     <LinearLayout
         android:id="@+id/tv_add_new"
         android:layout_width="match_parent"
         android:weightSum="2"
-        android:background="@color/colorAccent"
         android:layout_height="43dp"
         android:orientation="horizontal">
 
@@ -22,15 +21,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/manager"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:textSize="18sp"
           />
     </LinearLayout>
         <View
+            android:background="@color/grey"
             style="@style/Divider.Horizontal"
             android:layout_marginTop="40dp" />
     <ImageView
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/product_description"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -84,11 +84,23 @@
         android:hint="@string/product_price"
         android:background="@drawable/inputs_design"
         android:autofillHints="" />
-    <Button
+        <CheckBox
+            android:id="@+id/is_deal_chkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deal_price"
+            android:layout_below="@id/product_price"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <Button
         android:id="@+id/btn_add_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/product_price"
+        android:layout_below="@id/is_deal_chkbox"
         android:layout_margin="20dp"
         android:textSize="20sp"
         android:text="@string/add_new_product"

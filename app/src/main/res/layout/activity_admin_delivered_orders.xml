@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Admin.AdminWaitingForShipmentActivity"
+    android:background="@color/grey"
+    >
+    <RelativeLayout
+        android:id="@+id/rel_layout_admin_delivered"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_delivered_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/delivered_orders"
+            android:textAlignment="center"
+            android:textColor="@color/darkBlue"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+    <View
+        android:background="@color/grey"
+        style="@style/Divider.Horizontal"
+        android:layout_marginTop="44dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_delivered_orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_layout_admin_delivered"
+        />
+
+
+</RelativeLayout>

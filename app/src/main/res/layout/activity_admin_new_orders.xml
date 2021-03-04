@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".AdminNewOrdersActivity"
-    android:background="?attr/colorButtonNormal"
+    tools:context=".Admin.AdminNewOrdersActivity"
+    android:background="@color/grey"
     >
     <RelativeLayout
         android:id="@+id/rel_layout_admin_new_orders"
@@ -28,6 +28,7 @@
 
     </RelativeLayout>
     <View
+        android:background="@color/grey"
         style="@style/Divider.Horizontal"
         android:layout_marginTop="44dp" />
     <androidx.recyclerview.widget.RecyclerView

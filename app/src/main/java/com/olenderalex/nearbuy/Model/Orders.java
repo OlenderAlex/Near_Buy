@@ -5,7 +5,7 @@ import static com.olenderalex.nearbuy.Utils.Util.totalPrice;
 public class Orders {
 
     private String total_price, address, city, uploaded_at_date, uploaded_at_time;
-    private String name, phone, state,orderNumber;
+    private String name, phone, status,orderNumber;
 
     public Orders() {
 
@@ -13,7 +13,7 @@ public class Orders {
 
     public Orders(String total_price, String address, String city
             , String uploaded_at_date, String uploaded_at_time
-            , String name, String phone, String state,String orderNumber) {
+            , String name, String phone, String status,String orderNumber) {
         this.total_price = total_price;
         this.address = address;
         this.city = city;
@@ -21,7 +21,7 @@ public class Orders {
         this.uploaded_at_time = uploaded_at_time;
         this.name = name;
         this.phone = phone;
-        this.state = state;
+        this.status = status;
         this.orderNumber=orderNumber;
     }
 
@@ -89,11 +89,11 @@ public class Orders {
         this.phone = phone;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

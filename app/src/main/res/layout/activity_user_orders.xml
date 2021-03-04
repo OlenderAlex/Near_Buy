@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserOrdersActivity"
+    tools:context=".User.UserOrdersActivity"
     android:background="@color/white"
    >
     <RelativeLayout
@@ -21,14 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:text="@string/orders1"
+            android:layout_marginTop="3dp"
+            android:text="@string/your_orders"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
             />
         <View
+            android:background="@color/grey"
             style="@style/Divider.Horizontal"
             android:layout_marginTop="40dp" />
     </RelativeLayout>
@@ -38,17 +39,5 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/userOrders_rel_layout"
         />
-    <TextView
-        android:id="@+id/userOrders_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:layout_centerVertical="true"
-        android:textSize="25sp"
-        android:visibility="gone"
-      />
+
 </RelativeLayout>

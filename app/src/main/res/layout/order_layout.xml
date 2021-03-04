@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/ivOne_new_orders"
+        android:layout_width="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/logo_icon_clean"/>
+    <TextView
+        android:id="@+id/order_number_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/order_number"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+    <TextView
+        android:layout_below="@+id/order_number_new_orders"
+        android:id="@+id/user_name_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+
+    <TextView
+        android:id="@+id/user_phone_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_number"
+        android:layout_below="@+id/user_name_new_orders"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+
+    <TextView
+        android:id="@+id/user_address_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:layout_below="@+id/user_phone_new_orders"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+    <TextView
+        android:id="@+id/order_time_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_and_time"
+        android:layout_below="@+id/user_address_new_orders"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+
+    <TextView
+        android:id="@+id/total_price_new_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/total_price"
+        android:layout_below="@+id/order_time_new_orders"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+    <Button
+        android:id="@+id/show_details_new_orders_btn"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/total_price_new_orders"
+        android:textColor="@color/white"
+        android:text="@string/show_details"
+        android:layout_margin="10dp"
+        android:background="@color/darkBlue"/>
+</RelativeLayout>
+

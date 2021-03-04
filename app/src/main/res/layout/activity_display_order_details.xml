@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.DisplayOrderDetails"
+    android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/rel_layout_seller_display_confirmed_orders"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/ordered_products"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+        <View
+            android:background="@color/grey"
+            style="@style/Divider.Horizontal"
+            android:layout_marginTop="40dp" />
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/admin_display_order_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_layout_seller_display_confirmed_orders"
+        android:layout_above="@+id/btn_set_ready_for_shipment"
+        />
+
+    <Button
+        android:id="@+id/btn_set_ready_for_shipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_cancel_order"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/colorAccent"
+        android:text="@string/order_packed_and_ready"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/btn_cancel_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:text="@string/cancel_order"
+        android:visibility="gone"
+        android:textSize="18dp"
+        android:textColor="@color/red"/>
+</RelativeLayout>
